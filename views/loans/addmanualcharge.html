@@ -1,0 +1,73 @@
+<div class="content-container" ng-controller="AddManualChargeController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+        <li class="active">{{'label.anchor.addmanualcharge' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <form class="form-horizontal" novalidate="" name="manualchargeform" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <legend>{{ 'label.heading.addmanualcharge' | translate }}</legend>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="amount">{{ 'label.input.amount' | translate }}<span
+                                    class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input id="amount" type="text" class="form-control" name="amount" ng-model="formData.amount" required
+                                       number-format >
+                            </div>
+                            <div class="col-sm-2">
+                                <form-validate valattributeform="manualchargeform" valattribute="amount"/>
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.chargeaccount' | translate }}<span class="required">*</span></label>
+                        <!--is-open="opened"-->
+                        <div class="col-sm-3">
+                            <select chosen="glAccounts" ng-model="dbAccount"
+                                    ng-options="(debitAccount.name +'('+ debitAccount.glCode +')') for debitAccount in glAccounts | orderBy:'glCode'" class="form-control">
+                                <option class="displaynone" value="">{{'label.selectaccount' | translate}}</option>
+                            </select>&nbsp;&nbsp;
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.typeOfCharge' | translate }}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+
+                            <input id="typeOfCharge" type="text" class="form-control" name="description" ng-model="formData.typeOfCharge" required
+                            />
+                        </div>
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="manualchargeform" valattribute="description"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.addchargedate' | translate }}<span class="required">*</span></label>
+                        <!--is-open="opened"-->
+                        <div class="col-sm-3">
+                            <input class="form-control" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
+                                   ng-model="formData.date"  min="'2000-01-01'" max="restrictDate"/>
+                        </div>
+                    </div>
+
+
+                </fieldset>
+                <div class="col-md-offset-3">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}
+                    </button>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MANUALCHARGE' >{{ 'label.button.save' |
+                        translate }}
+                    </button>
+                </div>
+            </form>    
+        </div>
+    </div>
+</div>

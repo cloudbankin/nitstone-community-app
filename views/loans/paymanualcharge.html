@@ -1,0 +1,58 @@
+<div class="content-container" ng-controller="PayManualChargeController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+        <li class="active">{{'label.anchor.paymanualcharge' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <form class="form-horizontal" novalidate="" name="manualchargeform" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <legend>{{ 'label.heading.paymanualcharge' | translate }}</legend>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="amount">{{ 'label.input.amount' | translate }}</label>
+
+                            <div class="col-sm-3">
+                                <input id="amount" type="text" class="form-control" name="amount" ng-model="formData.amount" required
+                                       number-format readonly>
+                            </div>
+                            <div class="col-sm-2">
+                                <form-validate valattributeform="manualchargeform" valattribute="amount"/>
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
+                        <!--is-open="opened"-->
+                        <div class="col-sm-3">
+                            <input class="form-control" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
+                                   ng-model="formData.date"  min="'2000-01-01'" max="restrictDate"/>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}<span class="required">*</span></label>
+
+                        <div class="col-sm-8">
+                            <textarea rows="8" name="description" ng-model="formData.comments" class="form-control" required></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="manualchargeform" valattribute="description"/>
+                        </div>
+                    </div>-->
+
+                </fieldset>
+                <div class="col-md-offset-3">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}
+                    </button>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='PAY_MANUALCHARGE' >{{ 'label.button.save' |
+                        translate }}
+                    </button>
+                </div>
+            </form>    
+        </div>
+    </div>
+</div>
