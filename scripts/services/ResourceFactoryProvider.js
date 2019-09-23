@@ -554,6 +554,9 @@
                             get:{method:'GET',params:{}}
                         }
                     ),
+                    addressListByEntity:defineResource(apiVer+"/client/:clientId/addresses",{},{
+                        get:{method:'GET',params:{status:'@status',entityId:'@entityId',entityType:'@entityType'},isArray:true}  
+                    }),
                     addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity",{},{
                         get:{method:'GET',params:{},isArray:true }
                     }),
@@ -608,6 +611,14 @@
                     }),
                     taxcomponenttemplate: defineResource(apiVer + "/taxes/component/template",{},{
                     }),
+                  //Habile changes for tax component
+                    habileTaxComponentTemplate: defineResource(apiVer + "/habileTaxes/component/template",{},{
+                    }),
+                    habileTaxComponent: defineResource(apiVer + "/habileTaxes/component/:taxComponentId",{taxComponentId:'@taxComponentId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    //Habile changes end
                     taxgroup: defineResource(apiVer + "/taxes/group/:taxGroupId",{taxGroupId:'@taxGroupId'},{
                         getAll: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params: {}}
@@ -673,6 +684,9 @@
                     }),
                     updateForgotPasswordResource: defineResource(apiVer + "/forgotPassword/:userName/:password", {userName: '@userName', password: '@password'}, {
                         save: {method: 'POST', params: {}}
+                    }),
+                    chargeAdditionalDetailsAPIResource: defineResource(apiVer + "/charges/chargeadditionaldetails/:chargeId", {chargeId: '@chargeId'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];

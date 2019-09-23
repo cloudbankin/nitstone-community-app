@@ -137,6 +137,9 @@
                                         <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClicked()"
                                                    ng-checked="checkerInboxAllCheckBoxesMet()"/></th>
                                         <th>{{'label.heading.id' | translate}}</th>
+                                        <th>{{'label.heading.clientname' | translate}}</th>
+                                        
+                                        <th>{{'label.heading.loanaccountno' | translate}}</th>
                                         <th>{{'label.heading.madeondate' | translate}}</th>
                                         <th>{{'label.heading.status' | translate}}</th>
                                         <th>{{'label.heading.user' | translate}}</th>
@@ -150,6 +153,9 @@
                                         pagination-id="inbox">
                                         <td><input type="checkbox" data-ng-model="checkData[data.id]"/></td>
                                         <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.clientName}}</td>
+                                        
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.loanAccountNo}}</td>
                                         <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate |
                                             DateFormat}}
                                         </td>

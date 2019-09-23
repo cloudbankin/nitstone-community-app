@@ -2,7 +2,9 @@
     mifosX.controllers = _.extend(module, {
         AccCoaController: function (scope,$rootScope, translate, resourceFactory, location) {
 
-            $rootScope.tempNodeID = -100; // variable used to store nodeID (from directive), so it(nodeID) is available for detail-table
+            $rootScope.tempNodeID = -100; // variable used to store nodeID
+											// (from directive), so it(nodeID)
+											// is available for detail-table
 
             scope.coadata = [];
             scope.isTreeView = false;
@@ -141,7 +143,8 @@
                     }
                 }
 
-                //by default display assetTagsOptions and assetHeaderAccountOptions
+                // by default display assetTagsOptions and
+				// assetHeaderAccountOptions
                 scope.types = data.allowedAssetsTagOptions,
                     scope.headerTypes = data.assetHeaderAccountOptions;
                 scope.changeType();
@@ -280,7 +283,7 @@
                 accountingRule.officeId = this.formData.officeId;
                 accountingRule.description = this.formData.description;
 
-                //Construct creditsTags array
+                // Construct creditsTags array
                 if (this.creditRuleType == 'tags') {
                     accountingRule.allowMultipleCreditEntries = this.formData.allowMultipleCreditEntries;
                     accountingRule.creditTags = [];
@@ -291,7 +294,7 @@
                     accountingRule.accountToCredit = this.formData.accountToCredit.id;
                 }
 
-                //Construct debitTags array
+                // Construct debitTags array
                 if (this.debitRuleType == 'tags') {
                     accountingRule.allowMultipleDebitEntries = this.formData.allowMultipleDebitEntries;
                     accountingRule.debitTags = [];
@@ -381,31 +384,33 @@
             scope.offices = [];
 
             resourceFactory.accountingRulesResource.getById({accountingRuleId: routeParams.id, template: true}, function (data) {
-                //Initialize the template options
+                // Initialize the template options
                 scope.glAccounts = data.allowedAccounts;
                 scope.offices = data.allowedOffices;
                 scope.creditTagOptions = data.allowedCreditTagOptions;
                 scope.debitTagOptions = data.allowedDebitTagOptions;
                 scope.accountingRuleId = data.id;
-                //update text fields
+                // update text fields
                 scope.formData.name = data.name;
                 scope.formData.officeId = data.officeId;
                 scope.formData.description = data.description;
 
-                //update formData for view previous details.
+                // update formData for view previous details.
                 for (var i = 0; i < data.allowedOffices.length; i++) {
                     if (data.officeId == data.allowedOffices[i].id) {
                         scope.formData.office = data.allowedOffices[i].id;
                     }
                 }
 
-                //update credits
+                // update credits
                 if (data.creditAccounts) {
-                    //if the selected type is account then creditAccounts array will have only 1 account, which is a selected account.
+                    // if the selected type is account then creditAccounts array
+					// will have only 1 account, which is a selected account.
                     scope.formData.accountToCredit = data.creditAccounts[0].id;
                     scope.creditRuleType = 'Account';
                 } else {
-                    //if the selected type is tags then push the tags into creditTags array
+                    // if the selected type is tags then push the tags into
+					// creditTags array
                     scope.formData.creditTags = [];
                     scope.creditRuleType = 'tags';
                     scope.formData.allowMultipleCreditEntries = data.allowMultipleCreditEntries;
@@ -414,13 +419,15 @@
                     }
                 }
 
-                //update debits
+                // update debits
                 if (data.debitAccounts) {
-                    //if the selected type is account then debitAccounts array will have only 1 account, which is a selected account.
+                    // if the selected type is account then debitAccounts array
+					// will have only 1 account, which is a selected account.
                     scope.formData.accountToDebit = data.debitAccounts[0].id;
                     scope.debitRuleType = 'Account';
                 } else {
-                    //if the selected type is tags then push the tags into debitTags array
+                    // if the selected type is tags then push the tags into
+					// debitTags array
                     scope.formData.debitTags = [];
                     scope.debitRuleType = 'tags';
                     scope.formData.allowMultipleDebitEntries = data.allowMultipleDebitEntries;
@@ -497,7 +504,7 @@
                 accountingRule.officeId = this.formData.officeId;
                 accountingRule.description = this.formData.description;
 
-                //Construct creditsTags array
+                // Construct creditsTags array
                 if (this.creditRuleType == 'tags') {
                     accountingRule.allowMultipleCreditEntries = this.formData.allowMultipleCreditEntries;
                     accountingRule.creditTags = [];
@@ -508,7 +515,7 @@
                     accountingRule.accountToCredit = this.formData.accountToCredit;
                 }
 
-                //Construct debitTags array
+                // Construct debitTags array
                 if (this.debitRuleType == 'tags') {
                     accountingRule.allowMultipleDebitEntries = this.formData.allowMultipleDebitEntries;
                     accountingRule.debitTags = [];
@@ -561,7 +568,7 @@
                 scope.formData.officeId = scope.offices[0].id;
             });
 
-            //event for rule change
+            // event for rule change
             scope.resetCrAndDb = function (rule) {
                 scope.rule = rule;
                 scope.formData.crAccounts = [{}];
@@ -579,7 +586,7 @@
                 }
             }
 
-            //events for credits
+            // events for credits
             scope.addCrAccount = function () {
                 scope.errorcreditevent = false;
                 scope.formData.crAccounts.push({});
@@ -598,7 +605,7 @@
                 }
             }
 
-            //events for debits
+            // events for debits
             scope.addDebitAccount = function () {
                 scope.errordebitevent = false;
                 scope.formData.dbAccounts.push({});
@@ -637,7 +644,7 @@
                 jeTransaction.receiptNumber = this.formData.receiptNumber;
                 jeTransaction.bankNumber = this.formData.bankNumber;
 
-                //Construct credits array
+                // Construct credits array
                 jeTransaction.credits = [];
                 for (var i = 0; i < this.formData.crAccounts.length; i++) {
                     var temp = new Object();
@@ -646,7 +653,7 @@
                     jeTransaction.credits.push(temp);
                 }
 
-                //construct debits array
+                // construct debits array
                 jeTransaction.debits = [];
                 for (var i = 0; i < this.formData.dbAccounts.length; i++) {
                     var temp = new Object();
@@ -692,7 +699,7 @@
 
             resourceFactory.accountCoaResource.get({glAccountId: routeParams.id, template: 'true'}, function (data) {
 
-                //to display parent name
+                // to display parent name
                 if (data.type.value == "ASSET") {
                     scope.accountOptions = data.assetHeaderAccountOptions || [];
                     for (var i = 0; i < scope.accountOptions.length; i++) {
@@ -1081,7 +1088,7 @@
                 scope.officeHierarchy = scope.offices[0].hierarchy;
             });
 
-            //events for credits
+            // events for credits
             scope.addCrAccount = function () {
                 scope.formData.crAccounts.push({});
             }
@@ -1090,7 +1097,7 @@
                 scope.formData.crAccounts.splice(index, 1);
             }
 
-            //events for debits
+            // events for debits
             scope.addDebitAccount = function () {
                 scope.formData.dbAccounts.push({});
             }
@@ -1173,7 +1180,7 @@
                 jeTransaction.receiptNumber = this.formData.receiptNumber;
                 jeTransaction.bankNumber = this.formData.bankNumber;
 
-                //Construct credits array
+                // Construct credits array
                 jeTransaction.credits = [];
                 for (var i = 0; i < this.formData.crAccounts.length; i++) {
                     var temp = new Object();
@@ -1183,7 +1190,7 @@
                     temp.amount = this.formData.crAccounts[i].crAmount;
                     jeTransaction.credits.push(temp);
                 }
-                //construct debits array
+                // construct debits array
                 jeTransaction.debits = [];
                 for (var i = 0; i < this.formData.dbAccounts.length; i++) {
                     var temp = new Object();
@@ -2768,21 +2775,22 @@
                     }
                 });
             };
-            //viewStaffAssignmentHistory [Report]
+            // viewStaffAssignmentHistory [Report]
             scope.viewStaffAssignmentHistory = function () {
-                //alert("center id : "+ scope.center.id);
+                // alert("center id : "+ scope.center.id);
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'HTML';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Staff Assignment History");
                 scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
-                //alert("url: "+ scope.baseURL);
+                // alert("url: "+ scope.baseURL);
                 var reportParams = "";
                 var paramName = "R_centerId";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.center.id);
                 if (reportParams > "") {
                     scope.baseURL += "&" + reportParams;
                 }
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                // allow untrusted urls for iframe
+				// http://docs.angularjs.org/error/$sce/insecurl
                 scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
@@ -3335,7 +3343,7 @@
             scope.forceOffice = null;
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
-            //address
+            // address
             scope.addressTypes=[];
             scope.countryOptions=[];
             scope.stateOptions=[];
@@ -3506,8 +3514,8 @@
                 scope.cancel = "#/clients"
             }
 
-            //return input type
-            //return input type
+            // return input type
+            // return input type
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
@@ -3605,7 +3613,7 @@
                 if (!scope.savings.opensavingsproduct) {
                     this.formData.savingsProductId = null;
                 }
-
+scope.formData.address = [];
                 if(scope.enableAddress===true)
                 {
                     for(var i=0;i<scope.addressArray.length;i++)
@@ -4086,7 +4094,7 @@
 
             scope.routeTo=function()
             {
-                location.path('/address/'+ routeParams.id);
+            	location.path('/address/' + routeParams.id + '/client');
             }
 
             scope.ChangeAddressStatus=function(id,status,addressId)
@@ -4094,6 +4102,9 @@
 
                 formdata.isActive=!status
                 formdata.addressId=addressId
+                $scope.formData.entityType = routeParams.entityType;
+                $scope.formData.entityID = routeParams.clientId;
+                
                 resourceFactory.clientAddress.put({clientId:id},formdata,function(data)
                 {
                     route.reload();
@@ -4102,10 +4113,14 @@
 
             scope.routeToEdit=function(clientId,addressId)
             {
-                location.path('/editAddress/'+clientId+'/'+addressId+'/'+ routeParams.id);
+                location.path('/editAddress/'+clientId+'/'+addressId+'/'+ routeParams.id + '/client');
 
 
             }
+            
+            /*scope.routeToEdit = function (clientId, addressId) {
+                location.path('/editAddress/' + clientId + '/' + addressId + '/' + routeParams.id + '/client');
+            }*/
 
 
             // end of address
@@ -4753,8 +4768,8 @@
     });
 }(mifosX.controllers || {}));
 ;'use strict';
-/*global _ */
-/*global mifosX */
+/* global _ */
+/* global mifosX */
 
 (function (module) {
         mifosX.controllers = _.extend(module, {
@@ -4903,7 +4918,7 @@
                             if (data.groups.length > 0) {
                                 scope.collectionsheetdata = data;
                                 scope.clientsAttendanceArray(data.groups);
-                                //scope.total(data);
+                                // scope.total(data);
                                 scope.savingsgroups = data.groups;
                                 scope.sumTotalDueCollection();
                             } else {
@@ -4919,7 +4934,7 @@
                             if (data.groups.length > 0) {
                                 scope.collectionsheetdata = data;
                                 scope.clientsAttendanceArray(data.groups);
-                                //scope.total(data);
+                                // scope.total(data);
                                 scope.savingsgroups = data.groups;
                                 scope.sumTotalDueCollection();
                             } else {
@@ -4937,8 +4952,8 @@
                 };
 
                 /**
-                 * Sum of loans and savings due for collection group by currency
-                 */
+				 * Sum of loans and savings due for collection group by currency
+				 */
                 scope.sumTotalDueCollection = function () {
                     scope.totalDueCollection = [];
                     scope.sumGroupDueCollection();
@@ -4989,8 +5004,8 @@
                 };
 
                 /**
-                 * Sum of loan dues and Savings dues group by group and product
-                 */
+				 * Sum of loan dues and Savings dues group by group and product
+				 */
                 scope.sumGroupDueCollection = function () {
                     scope.savingsGroupsTotal = [];
                     scope.loanGroupsTotal = [];
@@ -5008,10 +5023,11 @@
                 };
 
                 /**
-                 * Sum of savings dues group by group id and savings product id
-                 * @param group
-                 * @param saving
-                 */
+				 * Sum of savings dues group by group id and savings product id
+				 * 
+				 * @param group
+				 * @param saving
+				 */
                 scope.sumGroupSavingsDueCollection = function (group, saving) {
                     var existing = _.findWhere(scope.savingsGroupsTotal, {groupId: group.groupId, productId: saving.productId});
                     var dueAmount = saving.dueAmount;
@@ -5033,20 +5049,21 @@
                 };
 
                 /**
-                 * Sum of loans dues group by group id and loan product id
-                 * @param group
-                 * @param loan
-                 */
+				 * Sum of loans dues group by group id and loan product id
+				 * 
+				 * @param group
+				 * @param loan
+				 */
                 scope.sumGroupLoansDueCollection = function (group, loan) {
                     var existing = _.findWhere(scope.loanGroupsTotal, {groupId: group.groupId, productId: loan.productId});
-                    //alert(_.isObject(existing));
+                    // alert(_.isObject(existing));
                     var totalDue = scope.getLoanTotalDueAmount(loan);
                     if (existing === 'undefined' || !(_.isObject(existing))) {
                         var gp = {
                             groupId: group.groupId,
                             productId: loan.productId,
                             dueAmount: totalDue,
-                            //chargesDue: loan['chargesDue'],
+                            // chargesDue: loan['chargesDue'],
                             currencyCode: loan.currency.code,
                             currencySymbol: loan.currency.displaySymbol
                         };
@@ -5068,8 +5085,9 @@
                     return Math.ceil((Number(principalInterestDue) + Number(chargesDue)) * 100) / 100;
                 };
                 /**
-                 * Sum of savings dues across all groups group by savings product id
-                 */
+				 * Sum of savings dues across all groups group by savings
+				 * product id
+				 */
                 scope.sumSavingsDueCollection = function () {
                     scope.savingsTotal = [];
                     _.each(scope.savingsGroupsTotal, function (group) {
@@ -5094,8 +5112,8 @@
                 };
 
                 /**
-                 * Sum of loans dues across all groups group by loan product id
-                 */
+				 * Sum of loans dues across all groups group by loan product id
+				 */
                 scope.sumLoansTotal = function () {
                     scope.loansTotal = [];
                     _.each(scope.loanGroupsTotal, function (group) {
@@ -5195,7 +5213,7 @@
                         scope.formData.bankNumber = scope.paymentDetail.bankNumber;
                     }
                     scope.formData.bulkDisbursementTransactions = [];
-                    //construct loan repayment and savings due transactions
+                    // construct loan repayment and savings due transactions
                     scope.constructBulkLoanAndSavingsRepaymentTransactions();
                     scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                     scope.formData.bulkSavingsDueTransactions = scope.bulkSavingsDueTransactions;
@@ -5224,8 +5242,8 @@
 )
 ;
 ;'use strict';
-/*global _ */
-/*global mifosX */
+/* global _ */
+/* global mifosX */
 
 (function (module) {
         mifosX.controllers = _.extend(module, {
@@ -5385,7 +5403,7 @@
                     }
                     data.actualDisbursementDate = this.formData.transactionDate;
                     data.bulkDisbursementTransactions = [];
-                    //construct loan repayment and savings due transactions
+                    // construct loan repayment and savings due transactions
                     scope.constructBulkLoanAndSavingsRepaymentTransactions();
                     data.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                     data.bulkSavingsDueTransactions = scope.bulkSavingsDueTransactions;
@@ -5649,8 +5667,22 @@
             entityname="ADDRESS";
             $scope.editable=false;
             clientId=routeParams.id;
+/**
+			 * Habile Changes Start Add address based on entity type
+			 */
+			$scope.entityTypeSample = routeParams.entityType;
+
+			if (routeParams.entityType == 'CLIENT') {
+				$scope.entityTypeSample = 'Client'
+			} else if (routeParams.entityType == 'office') {
+				$scope.entityTypeSample = 'office';
+			}
+			/**
+			 * Habile Changes End
+			 */
             resourceFactory.clientaddressFields.get(function(data){
                     $scope.addressTypes=data.addressTypeIdOptions;
+$scope.addressTypeId = data.addressTypeIdOptions;
                     $scope.countryOptions=data.countryIdOptions;
                     $scope.stateOptions=data.stateProvinceIdOptions;
                 }
@@ -5672,7 +5704,11 @@
             })
             $scope.routeTo=function()
             {
-                location.path('/viewclient/'+clientId);
+                if (routeParams.entityType == 'client') {
+					location.path('/viewclient/' + clientId);
+				} else if (routeParams.entityType == 'office') {
+					location.path('/viewoffice/' + routeParams.id);
+				}
             }
 
 
@@ -5705,10 +5741,17 @@
             }
 
             $scope.submit = function () {
+$scope.formData.entityType = routeParams.entityType;
+				$scope.formData.entityID = routeParams.id;
+
 
                 resourceFactory.clientAddress.save({'clientId': routeParams.id,'type':$scope.addressTypeId},$scope.formData,function (data) {
 
-                    location.path('/viewclient/'+clientId);
+                    if (routeParams.entityType == 'client') {
+						location.path('/viewclient/' + clientId);
+					} else if (routeParams.entityType == 'office') {
+						location.path('/viewoffice/' + routeParams.id);
+					}
                 });
 
             };
@@ -5739,7 +5782,15 @@
             addresstypid=routeParams.addrType;
 
 
-            isActive={};
+            $scope.entityTypeSample=routeParams.entityType;
+
+            if (routeParams.entityType == 'CLIENT') {
+                $scope.entityTypeSample = 'Client'
+            } else if (routeParams.entityType == 'office') {
+                $scope.entityTypeSample = "office";
+            }
+
+            $scope.isActive={};
             var addressId=routeParams.addrId;
 
 
@@ -5760,6 +5811,11 @@
                 {
                     data[i].field='$scope.'+data[i].field;
                     eval(data[i].field+"="+data[i].is_enabled);
+                    }
+                    if (routeParams.entityType == 'client') {
+                        $scope.addressEditClient();
+                    } else {
+                        $scope.addressEditCommonPopulateFields();
 
                 }
 
@@ -5768,12 +5824,406 @@
             })
             $scope.routeTo=function()
             {
-                location.path('/viewclient/'+clientId);
+                if (routeParams.entityType == 'client') {
+                    location.path('/viewclient/' + clientId);
+                } else if (routeParams.entityType == 'office') {
+                    location.path('/viewoffice/' + routeParams.clientId);
+                }
+            }
+
+            /**
+             * Habile Changes Start
+             * Edit address based on entity type
+             */
+            $scope.addressEditCommonPopulateFields=function(){
+                resourceFactory.clientAddress.get({clientId:clientId,type:addressId,status:200},function(data)
+                {
+                    $scope.editable=true;
+                    for(var i=0;i<data.length;i++)
+                    {
+                        if(data[i].addressId==addressId)
+                        {
+                            if(data[i].addressTypeId){
+                                $scope.formData.addressTypeId=Number(data[i].addressTypeId);
+                            }
+                            if(data[i].street&&$scope.street)
+                            {
+                                $scope.formData.street=data[i].street;
+                            }
+                            if(data[i].addressLine1&&$scope.addressLine1)
+                            {
+                                $scope.formData.addressLine1=data[i].addressLine1;
+                            }
+                            if(data[i].addressLine2&&$scope.addressLine2)
+                            {
+                                $scope.formData.addressLine2=data[i].addressLine2;
+                            }
+                            if(data[i].addressLine3&&$scope.addressLine3)
+                            {
+                                $scope.formData.addressLine3=data[i].addressLine3;
+                            }
+                            if(data[i].townVillage&&$scope.townVillage)
+                            {
+                                $scope.formData.townVillage=data[i].townVillage;
+                            }
+                            if(data[i].city&&$scope.city)
+                            {
+                                $scope.formData.city=data[i].city;
+                            }
+                            if(data[i].countyDistrict&&$scope.countyDistrict)
+                            {
+                                $scope.formData.countyDistrict=data[i].countyDistrict;
+                            }
+                            if(data[i].stateProvinceId&&$scope.stateProvinceId)
+                            {
+                                $scope.formData.stateProvinceId=data[i].stateProvinceId;
+                            }
+                            if(data[i].countryId&&$scope.countryId)
+                            {
+                                $scope.formData.countryId=data[i].countryId;
+                            }
+                            if(data[i].postalCode&&$scope.postalCode)
+                            {
+                                $scope.formData.postalCode=Number(data[i].postalCode);
+                            }
+                            if(data[i].latitude&&$scope.latitue)
+                            {
+                                $scope.formData.latitude=data[i].latitude;
+                            }
+                            if(data[i].longitude&&$scope.longitude)
+                            {
+                                $scope.formData.longitude=data[i].longitude;
+                            }
+                            if(data[i].isActive&&$scope.isActive)
+                            {
+                                $scope.isActive=data[i].isActive;
+                            }
+                        }
+                    }
+                });
+            }//end
+
+
+
+            $scope.addressEditClient=function(){
+                resourceFactory.clientAddress.get({type:addresstypid,clientId:clientId},function(data)
+                {
+
+
+
+                        $scope.editable=true;
+                    for(var i=0;i<data.length;i++)
+                    {
+                        if(data[i].addressId==addressId)
+                        {
+                            if(data[i].addressTypeId){
+                                $scope.formData.addressTypeId=Number(data[i].addressTypeId);
+                            }
+                            if(data[i].street&&$scope.street)
+                            {
+                                $scope.formData.street=data[i].street;
+                            }
+                        if(data[i].addressLine1&&$scope.addressLine1)
+                        {
+                            $scope.formData.addressLine1=data[i].addressLine1;
+                        }
+                        if(data[i].addressLine2&&$scope.addressLine2)
+                        {
+                            $scope.formData.addressLine2=data[i].addressLine2;
+                        }
+                        if(data[i].addressLine3&&$scope.addressLine3)
+                        {
+                            $scope.formData.addressLine3=data[i].addressLine3;
+                        }
+                        if(data[i].townVillage&&$scope.townVillage)
+                        {
+                            $scope.formData.townVillage=data[i].townVillage;
+                        }
+                        if(data[i].city&&$scope.city)
+                        {
+                            $scope.formData.city=data[i].city;
+                        }
+                        if(data[i].countyDistrict&&$scope.countyDistrict)
+                        {
+                            $scope.formData.countyDistrict=data[i].countyDistrict;
+                        }
+                        if(data[i].stateProvinceId&&$scope.stateProvinceId)
+                        {
+                            $scope.formData.stateProvinceId=data[i].stateProvinceId;
+                        }
+                        if(data[i].countryId&&$scope.countryId)
+                        {
+                            $scope.formData.countryId=data[i].countryId;
+                        }
+                        if(data[i].postalCode&&$scope.postalCode)
+                        {
+                            $scope.formData.postalCode=data[i].postalCode;
+                        }
+                        if(data[i].latitude&&$scope.latitue)
+                        {
+                            $scope.formData.latitude=data[i].latitude;
+                        }
+                        if(data[i].longitude&&$scope.longitude)
+                        {
+                            $scope.formData.longitude=data[i].longitude;
+                        }
+                        if(data[i].isActive&&$scope.isActive)
+                        {
+                            $scope.isActive=data[i].isActive;
+                        }
+                    }
+                }
+
+
+
+
+            });
+}
+
+            $scope.updateaddress=function()
+            {
+
+                $scope.formData.locale="en";
+                $scope.formData.addressId=addressId;
+       //         resourceFactory.clientAddress.put({'clientId': clientId},$scope.formData,function (data) {
+
+                $scope.formData.entityType = routeParams.entityType;
+                $scope.formData.entityID = routeParams.clientId;
+            
+
+                resourceFactory.clientAddress.put({ 'clientId': clientId }, $scope.formData, function (data) {
+                    
+                	if (routeParams.entityType == 'client') {
+                        location.path('/viewclient/' + clientId);
+                    } else if (routeParams.entityType == 'office') {
+                        location.path('/viewoffice/' + routeParams.clientId);
+                    }
+                });
             }
 
 
+        }
 
 
+    });
+    mifosX.ng.application.controller('EditAddressController', ['$scope','ResourceFactory', '$routeParams', '$location', mifosX.controllers.EditAddressController]).run(function ($log) {
+        $log.info("EditAddressController initialized");
+    });
+
+}
+(mifosX.controllers || {}));;(function (module) {
+    mifosX.controllers = _.extend(module, {
+        EditConfigurationController: function (scope, resourceFactory, routeParams, location) {
+
+            scope.configId = routeParams.configId;
+            resourceFactory.configurationResource.get({id: scope.configId}, function (data) {
+                scope.formData = {value: data.value};
+            });
+            scope.cancel = function () {
+                location.path('/global');
+            };
+
+
+            scope.submit = function () {
+                resourceFactory.configurationResource.update({resourceType: 'configurations', id: scope.configId}, this.formData, function (data) {
+                    location.path('/global');
+                });
+            };
+
+        }
+    });
+    mifosX.ng.application.controller('EditConfigurationController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.EditConfigurationController]).run(function ($log) {
+        $log.info("EditConfigurationController initialized");
+    });
+}(mifosX.controllers || {}));
+;/**
+ * Created by 27 on 04-08-2015.
+ */
+(function (module) {
+    mifosX.controllers = _.extend(module, {
+        EditExternalServicesConfigurationController: function ($scope, resourceFactory, $routeParams, location) {
+            $scope.formData = [];
+            $scope.names = [];
+            $scope.externalServicesType = $routeParams.externalServicesType;
+            //$scope.name = $routeParams.name;
+            var nvObject = {};
+            resourceFactory.externalServicesResource.get({id: $scope.externalServicesType}, function (data) {
+                for (var i in data) {
+                    if(data[i] != null && data[i].name != null) {
+                        data[i].name.replace(/ /g, '');
+                        if (!angular.equals(data[i].name, "")) {
+                            nvObject[data[i].name] = data[i].value;
+                            $scope.names.push(data[i].name);
+
+                        }
+                    }
+                }
+                $scope.formData = nvObject;
+
+
+            });
+
+            $scope.cancel = function () {
+                location.path('/externalservices/'+ $scope.externalServicesType);
+            };
+
+            $scope.submit = function () {
+
+                //scope.formData1 = {  scope.name : scope.formData.value};
+                resourceFactory.externalServicesResource.put({id: $scope.externalServicesType}, this.formData, function (data) {
+                    location.path('/externalservices' );
+                });
+            };
+        }
+
+    });
+    mifosX.ng.application.controller('EditExternalServicesConfigurationController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.EditExternalServicesConfigurationController]).run(function ($log) {
+        $log.info("EditExternalServicesConfigurationController initialized");
+    });
+
+}(mifosX.controllers || {}));;(function (module) {
+    mifosX.controllers = _.extend(module, {
+        EditAddressController: function ($scope, resourceFactory, routeParams, location) {
+
+            $scope.formData={};
+            $scope.addressTypes=[];
+            $scope.countryOptions=[];
+            $scope.stateOptions=[];
+            $scope.addressTypeId={};
+            $scope.clients={};
+            $scope.addressType={};
+            entityname="ADDRESS";
+            $scope.addStatus="";
+            $scope.editable=false;
+            clientId=routeParams.clientId;
+            addresstypid=routeParams.addrType;
+            /**
+             * Habile Changes Start
+             * Edit address based on entity type
+             */
+            $scope.entityTypeSample=routeParams.entityType;
+
+            if (routeParams.entityType == 'CLIENT') {
+                $scope.entityTypeSample = 'Client'
+            } else if (routeParams.entityType == 'office') {
+                $scope.entityTypeSample = "office";
+            }
+
+            $scope.isActive={};
+            var addressId=routeParams.addrId;
+
+
+            resourceFactory.clientaddressFields.get(function(data){
+                    $scope.addressTypes=data.addressTypeIdOptions;
+                    $scope.countryOptions=data.countryIdOptions;
+                    $scope.stateOptions=data.stateProvinceIdOptions;
+                }
+            )
+
+
+            resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
+
+
+
+
+                for(var i=0;i<data.length;i++)
+                {
+                    data[i].field='$scope.'+data[i].field;
+                    eval(data[i].field+"="+data[i].is_enabled);
+                    }
+                    if (routeParams.entityType == 'client') {
+                        $scope.addressEditClient();
+                    } else {
+                        $scope.addressEditCommonPopulateFields();
+
+                }
+
+
+
+            })
+            $scope.routeTo=function()
+            {
+                if (routeParams.entityType == 'client') {
+                    location.path('/viewclient/' + clientId);
+                } else if (routeParams.entityType == 'office') {
+                    location.path('/viewoffice/' + routeParams.clientId);
+                }
+            }
+
+            /**
+             * Habile Changes Start
+             * Edit address based on entity type
+             */
+            $scope.addressEditCommonPopulateFields=function(){
+                resourceFactory.clientAddress.get({clientId:clientId,type:addressId,status:200},function(data)
+                {
+                    $scope.editable=true;
+                    for(var i=0;i<data.length;i++)
+                    {
+                        if(data[i].addressId==addressId)
+                        {
+                            if(data[i].addressTypeId){
+                                $scope.formData.addressTypeId=Number(data[i].addressTypeId);
+                            }
+                            if(data[i].street&&$scope.street)
+                            {
+                                $scope.formData.street=data[i].street;
+                            }
+                            if(data[i].addressLine1&&$scope.addressLine1)
+                            {
+                                $scope.formData.addressLine1=data[i].addressLine1;
+                            }
+                            if(data[i].addressLine2&&$scope.addressLine2)
+                            {
+                                $scope.formData.addressLine2=data[i].addressLine2;
+                            }
+                            if(data[i].addressLine3&&$scope.addressLine3)
+                            {
+                                $scope.formData.addressLine3=data[i].addressLine3;
+                            }
+                            if(data[i].townVillage&&$scope.townVillage)
+                            {
+                                $scope.formData.townVillage=data[i].townVillage;
+                            }
+                            if(data[i].city&&$scope.city)
+                            {
+                                $scope.formData.city=data[i].city;
+                            }
+                            if(data[i].countyDistrict&&$scope.countyDistrict)
+                            {
+                                $scope.formData.countyDistrict=data[i].countyDistrict;
+                            }
+                            if(data[i].stateProvinceId&&$scope.stateProvinceId)
+                            {
+                                $scope.formData.stateProvinceId=data[i].stateProvinceId;
+                            }
+                            if(data[i].countryId&&$scope.countryId)
+                            {
+                                $scope.formData.countryId=data[i].countryId;
+                            }
+                            if(data[i].postalCode&&$scope.postalCode)
+                            {
+                                $scope.formData.postalCode=Number(data[i].postalCode);
+                            }
+                            if(data[i].latitude&&$scope.latitue)
+                            {
+                                $scope.formData.latitude=data[i].latitude;
+                            }
+                            if(data[i].longitude&&$scope.longitude)
+                            {
+                                $scope.formData.longitude=data[i].longitude;
+                            }
+                            if(data[i].isActive&&$scope.isActive)
+                            {
+                                $scope.isActive=data[i].isActive;
+                            }
+                        }
+                    }
+                });
+            }//end
+
+
+            $scope.addressEditClient=function(){
             resourceFactory.clientAddress.get({type:addresstypid,clientId:clientId},function(data)
             {
 
@@ -5786,7 +6236,13 @@
                     {
                         if(data[i].street&&$scope.street)
                         {
-                            $scope.formData.street=data[i].street;
+                        	if(data[i].addressTypeId){
+                                $scope.formData.addressTypeId=Number(data[i].addressTypeId);
+                            }
+                            if(data[i].street&&$scope.street)
+                            {
+                                $scope.formData.street=data[i].street;
+                            }
                         }
                         if(data[i].addressLine1&&$scope.addressLine1)
                         {
@@ -5834,7 +6290,7 @@
                         }
                         if(data[i].isActive&&$scope.isActive)
                         {
-                            isActive=data[i].isActive;
+                        	$scope.isActive=data[i].isActive;
                         }
                     }
                 }
@@ -5843,15 +6299,25 @@
 
 
             });
-
+            }
 
             $scope.updateaddress=function()
             {
 
                 $scope.formData.locale="en";
                 $scope.formData.addressId=addressId;
-                resourceFactory.clientAddress.put({'clientId': clientId},$scope.formData,function (data) {
+            //    resourceFactory.clientAddress.put({'clientId': clientId},$scope.formData,function (data) {
+                $scope.formData.entityType = routeParams.entityType;
+                $scope.formData.entityID = routeParams.clientId;
+            
 
+                resourceFactory.clientAddress.put({ 'clientId': clientId }, $scope.formData, function (data) {
+                    
+                    if (routeParams.entityType == 'client') {
+                        location.path('/viewclient/' + clientId);
+                    } else if (routeParams.entityType == 'office') {
+                        location.path('/viewoffice/' + routeParams.clientId);
+                    }
                     location.path('/viewclient/'+clientId);
                 });
             }
@@ -5938,8 +6404,8 @@
 
 }(mifosX.controllers || {}));
 ;/**
- * Created by 27 on 03-08-2015.
- */
+	 * Created by 27 on 03-08-2015.
+	 */
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ExternalServicesController: function (scope, resourceFactory, location, route) {
@@ -5958,7 +6424,7 @@
             });
             resourceFactory.externalServicesSMTPResource.get(function (data) {
                 for (var i in data) {
-                    //console.log(data[0]);
+                    // console.log(data[0]);
                     if(data[i].name != "") {
                         data[i].showEditvalue = true;
                         scope.SMTPConfigs.push(data[i])
@@ -6045,14 +6511,14 @@
         $log.info("GlobalConfigurationController initialized");
     });
 }(mifosX.controllers || {}));;/**
- * Created by 27 on 05-08-2015.
- */
+								 * Created by 27 on 05-08-2015.
+								 */
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewExternalServicesController: function ($scope, resourceFactory, $routeParams, location) {
             $scope.Configs = [];
             $scope.externalServicesType = $routeParams.externalServicesType;
-            //$scope.name = $routeParams.name;
+            // $scope.name = $routeParams.name;
             resourceFactory.externalServicesResource.get({id: $scope.externalServicesType}, function (data) {
                 for (var i in data) {
                     if(data[i] != null && data[i].name != null) {
@@ -6144,10 +6610,10 @@
                 scope.centerEntity = true;
             }
 
-            //interest rate chart details
+            // interest rate chart details
             scope.chart = {};
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
 
             scope.charges = [];
             scope.inparams = {};
@@ -6202,7 +6668,7 @@
 
                     scope.chart = data.accountChart;
                     scope.chartSlabs = scope.chart.chartSlabs;
-                    //format chart date values
+                    // format chart date values
                     if (scope.chart.fromDate) {
                         var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                         scope.fromDate.date = new Date(fromDate);
@@ -6297,8 +6763,10 @@
                     }
                 }
 
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
                 this.formData = removeEmptyValues(this.formData);
 
                 resourceFactory.fixedDepositAccountResource.save(this.formData, function (data) {
@@ -6317,8 +6785,8 @@
             }
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -6349,8 +6817,8 @@
 
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -6360,14 +6828,14 @@
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.chart.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.productId,
+                    // savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs)),
                     isActiveChart: 'true'
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -6377,10 +6845,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -6391,10 +6860,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -6411,7 +6881,7 @@
                 if(chartSlab.periodType != undefined) {
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -6422,9 +6892,9 @@
 
             removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
-                    //alert(k + ':' + v);
+                    // alert(k + ':' + v);
                     if (_.isNull(v) || _.isUndefined(v) || v === '') {
-                        //alert('remove' + k + ':' + v);
+                        // alert('remove' + k + ':' + v);
                         delete objArray[k];
                     }
 
@@ -6434,8 +6904,8 @@
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
@@ -6455,10 +6925,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -6469,10 +6940,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -6513,8 +6985,8 @@
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
@@ -6535,10 +7007,10 @@
             scope.accountId = routeParams.id;
             scope.charges = [];
             scope.restrictDate = new Date();
-            //interest rate chart details
+            // interest rate chart details
             scope.chart = {};
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
 
             resourceFactory.fixedDepositAccountResource.get({accountId: scope.accountId, template: 'true', associations: 'charges, linkedAccount'}, function (data) {
                 scope.data = data;
@@ -6582,21 +7054,27 @@
                 scope.formData.depositPeriod = data.depositPeriod;
                 scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                 scope.formData.withHoldTax = data.withHoldTax;
-                /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
-                //scope.formData.annualFeeAmount = data.annualFeeAmount;
-                //scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
-                //scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
+                /*
+				 * FIX-ME: uncomment annualFeeAmount when datepicker avialable,
+				 * because it depends on the date field 'annualFeeOnMonthDay'
+				 */
+                // scope.formData.annualFeeAmount = data.annualFeeAmount;
+                // scope.formData.withdrawalFeeAmount =
+				// data.withdrawalFeeAmount;
+                // scope.formData.withdrawalFeeForTransfers =
+				// data.withdrawalFeeForTransfers;
 
                 if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                 if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
                 if (data.interestCalculationType) scope.formData.interestCalculationType = data.interestCalculationType.id;
                 if (data.interestCalculationDaysInYearType) scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                 if (data.lockinPeriodFrequencyType) scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
-                //if (data.withdrawalFeeType) scope.formData.withdrawalFeeType = data.withdrawalFeeType.id;
+                // if (data.withdrawalFeeType) scope.formData.withdrawalFeeType
+				// = data.withdrawalFeeType.id;
 
                 scope.chart = data.accountChart;
                 scope.chartSlabs = scope.chart.chartSlabs;
-                //format chart date values
+                // format chart date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                     scope.fromDate.date = new Date(fromDate);
@@ -6654,10 +7132,12 @@
                     if (data.interestCalculationType) scope.formData.interestCalculationType = data.interestCalculationType.id;
                     if (data.interestCalculationDaysInYearType) scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                     if (data.lockinPeriodFrequencyType) scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
-                    //if (data.withdrawalFeeType) scope.formData.withdrawalFeeType = data.withdrawalFeeType.id;
+                    // if (data.withdrawalFeeType)
+					// scope.formData.withdrawalFeeType =
+					// data.withdrawalFeeType.id;
 
                     scope.chart = data.accountChart;
-                    //format chart date values
+                    // format chart date values
                     if (scope.chart.fromDate) {
                         var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                         scope.fromDate.date = new Date(fromDate);
@@ -6750,8 +7230,10 @@
                     }
                 }
 
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
                 this.formData = removeEmptyValues(this.formData);
 
                 resourceFactory.fixedDepositAccountResource.update({'accountId': scope.accountId}, this.formData, function (data) {
@@ -6760,8 +7242,8 @@
             };
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -6792,8 +7274,8 @@
 
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -6803,14 +7285,14 @@
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.chart.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.productId,
+                    // savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs)),
                     isActiveChart: 'true'
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -6820,10 +7302,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -6834,10 +7317,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -6856,7 +7340,7 @@
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -6867,9 +7351,9 @@
 
             removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
-                    //alert(k + ':' + v);
+                    // alert(k + ':' + v);
                     if ((_.isNull(v) || _.isUndefined(v) || v === '') && (k != 'linkAccountId')) {
-                        //alert('remove' + k + ':' + v);
+                        // alert('remove' + k + ':' + v);
                         delete objArray[k];
                     }
 
@@ -6879,8 +7363,8 @@
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
@@ -6901,10 +7385,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -6915,10 +7400,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -6959,8 +7445,8 @@
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
@@ -7035,47 +7521,37 @@
                     scope.showNoteField = false;
                     scope.actionName = 'Approve application';
                     break;
-                /*case "deposit":
-                 resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId, command:'deposit'}, function (data) {
-                 scope.paymentTypes=data.paymentTypeOptions;
-                 });
-                 scope.title = 'label.heading.depositmoneytosavingaccount';
-                 scope.labelName = 'label.input.transactiondate';
-                 scope.modelName = 'transactionDate';
-                 scope.showDateField = true;
-                 scope.showNoteField = false;
-                 scope.isTransaction = true;
-                 scope.showPaymentDetails = false;
-                 break;
-                 case "withdrawal":
-                 resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId, command:'withdrawal'}, function (data) {
-                 scope.paymentTypes=data.paymentTypeOptions;
-                 });
-                 scope.title = 'label.heading.withdrawmoneyfromsavingaccount';
-                 scope.labelName = 'label.input.transactiondate';
-                 scope.modelName = 'transactionDate';
-                 scope.showDateField = true;
-                 scope.showNoteField = false;
-                 scope.isTransaction = true;
-                 scope.showPaymentDetails = false;
-                 break;
-                 case "applyAnnualFees":
-                 resourceFactory.savingsResource.get({accountId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId},
-                 function (data) {
-                 scope.formData.amount = data.amount;
-                 if (data.dueDate) {
-                 var dueDate = dateFilter(data.dueDate, scope.df);
-                 scope.formData.dueDate = new Date(dueDate);
-                 }
-                 });
-                 scope.title = 'label.heading.savingaccountapplyannualFee';
-                 scope.labelName = 'label.input.annualfeetransactiondate';
-                 scope.modelName = 'dueDate';
-                 scope.showDateField = true;
-                 scope.showAnnualAmountField = true;
-                 scope.showAmountField = false;
-                 scope.showNoteField = false;
-                 break;*/
+                /*
+				 * case "deposit":
+				 * resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId,
+				 * command:'deposit'}, function (data) {
+				 * scope.paymentTypes=data.paymentTypeOptions; }); scope.title =
+				 * 'label.heading.depositmoneytosavingaccount'; scope.labelName =
+				 * 'label.input.transactiondate'; scope.modelName =
+				 * 'transactionDate'; scope.showDateField = true;
+				 * scope.showNoteField = false; scope.isTransaction = true;
+				 * scope.showPaymentDetails = false; break; case "withdrawal":
+				 * resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId,
+				 * command:'withdrawal'}, function (data) {
+				 * scope.paymentTypes=data.paymentTypeOptions; }); scope.title =
+				 * 'label.heading.withdrawmoneyfromsavingaccount';
+				 * scope.labelName = 'label.input.transactiondate';
+				 * scope.modelName = 'transactionDate'; scope.showDateField =
+				 * true; scope.showNoteField = false; scope.isTransaction =
+				 * true; scope.showPaymentDetails = false; break; case
+				 * "applyAnnualFees":
+				 * resourceFactory.savingsResource.get({accountId :
+				 * routeParams.id, resourceType : 'charges', chargeId :
+				 * routeParams.chargeId}, function (data) {
+				 * scope.formData.amount = data.amount; if (data.dueDate) { var
+				 * dueDate = dateFilter(data.dueDate, scope.df);
+				 * scope.formData.dueDate = new Date(dueDate); } }); scope.title =
+				 * 'label.heading.savingaccountapplyannualFee'; scope.labelName =
+				 * 'label.input.annualfeetransactiondate'; scope.modelName =
+				 * 'dueDate'; scope.showDateField = true;
+				 * scope.showAnnualAmountField = true; scope.showAmountField =
+				 * false; scope.showNoteField = false; break;
+				 */
                 case "close":
                     resourceFactory.fixedDepositAccountResource.get({accountId: routeParams.id, resourceType: 'template', command: 'close'},
                         function (data) {
@@ -7245,11 +7721,15 @@
                         if (this.formData.activatedOnDate) {
                             this.formData.activatedOnDate = dateFilter(this.formData.activatedOnDate, scope.df);
                         }
-                        /*} else if (scope.action == "applyAnnualFees" || scope.action == "paycharge" || scope.action == "waivecharge") {
-                         params = {accountId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, command : 'paycharge'};
-                         if (this.formData.dueDate) {
-                         this.formData.dueDate = dateFilter(this.formData.dueDate,scope.df);
-                         }*/
+                        /*
+						 * } else if (scope.action == "applyAnnualFees" ||
+						 * scope.action == "paycharge" || scope.action ==
+						 * "waivecharge") { params = {accountId :
+						 * routeParams.id, resourceType : 'charges', chargeId :
+						 * routeParams.chargeId, command : 'paycharge'}; if
+						 * (this.formData.dueDate) { this.formData.dueDate =
+						 * dateFilter(this.formData.dueDate,scope.df); }
+						 */
                     } else if (scope.action === "close") {
                         if (this.formData.closedOnDate) {
                             this.formData.closedOnDate = dateFilter(this.formData.closedOnDate, scope.df);
@@ -7293,11 +7773,14 @@
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
             };
 
-            /***
-             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
-             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
-             * @param dateFieldName
-             */
+            /*******************************************************************
+			 * we are using
+			 * orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter
+			 * to sort fields in ui api returns dates in array format[yyyy, mm,
+			 * dd], converting the array of dates to date object
+			 * 
+			 * @param dateFieldName
+			 */
             scope.convertDateArrayToObject = function(dateFieldName){
                 for(var i in scope.savingaccountdetails.transactions){
                     scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
@@ -7345,14 +7828,14 @@
                             route.reload();
                         });
                         break;
-                    /*          case "applyAnnualFees":
-                     location.path('/savingaccountcharge/' + accountId + '/applyAnnualFees/' + scope.annualChargeId);
-                     break;
-                     case "transferFunds":
-                     if (scope.savingaccountdetails.clientId) {
-                     location.path('/accounttransfers/fromsavings/'+accountId);
-                     }
-                     break;*/
+                    /*
+					 * case "applyAnnualFees":
+					 * location.path('/savingaccountcharge/' + accountId +
+					 * '/applyAnnualFees/' + scope.annualChargeId); break; case
+					 * "transferFunds": if (scope.savingaccountdetails.clientId) {
+					 * location.path('/accounttransfers/fromsavings/'+accountId); }
+					 * break;
+					 */
                     case "close":
                         location.path('/fixeddepositaccount/' + accountId + '/close');
                         break;
@@ -7478,11 +7961,10 @@
                             });
                         }
                     }
-                    /*if (data.clientId) {
-                     scope.buttons.options.push({
-                     name:"button.transferFunds"
-                     });
-                     }*/
+                    /*
+					 * if (data.clientId) { scope.buttons.options.push({
+					 * name:"button.transferFunds" }); }
+					 */
 
                 }else if (data.status.value == "Matured") {
                     scope.buttons = { singlebuttons: [
@@ -7505,11 +7987,10 @@
                         ]
 
                     };
-                    /*if (data.clientId) {
-                     scope.buttons.options.push({
-                     name:"button.transferFunds"
-                     });
-                     }*/
+                    /*
+					 * if (data.clientId) { scope.buttons.options.push({
+					 * name:"button.transferFunds" }); }
+					 */
 
                 }
 
@@ -7729,11 +8210,11 @@
                 scope.centerEntity = true;
             }
 
-            //interest rate chart details
+            // interest rate chart details
             scope.chart = {};
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
-            //scope.formData.expectedFirstDepositOnDate = {};
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
+            // scope.formData.expectedFirstDepositOnDate = {};
 
             scope.charges = [];
             scope.inparams = {};
@@ -7786,7 +8267,7 @@
 
                     scope.chart = data.accountChart;
                     scope.chartSlabs = scope.chart.chartSlabs;
-                    //format chart date values
+                    // format chart date values
                     if (scope.chart.fromDate) {
                         var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                         scope.fromDate.date = new Date(fromDate);
@@ -7812,7 +8293,8 @@
                     scope.formData.inMultiplesOfDepositTermTypeId = inMultiplesOfDepositTermTypeId;
                     scope.formData.isMandatoryDeposit = data.isMandatoryDeposit;
                     scope.formData.allowWithdrawal = data.allowWithdrawal;
-                    //alert(data.allowWithdrawal + '='+ data.isMandatoryDeposit + '='+data.adjustAdvanceTowardsFuturePayments);
+                    // alert(data.allowWithdrawal + '='+ data.isMandatoryDeposit
+					// + '='+data.adjustAdvanceTowardsFuturePayments);
                     scope.formData.adjustAdvanceTowardsFuturePayments = data.adjustAdvanceTowardsFuturePayments;
                 });
             };
@@ -7876,8 +8358,10 @@
                     }
                 }
 
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
                 this.formData = removeEmptyValues(this.formData);
                 this.formData.isCalendarInherited = (_.isNull(this.formData.isCalendarInherited) || _.isUndefined(this.formData.isCalendarInherited)) ? false : this.formData.isCalendarInherited;
 
@@ -7901,8 +8385,8 @@
             }
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -7934,8 +8418,8 @@
 
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -7945,14 +8429,14 @@
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.chart.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.productId,
+                    // savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs)),
                     isActiveChart: 'true'
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -7962,10 +8446,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -7976,10 +8461,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -7998,7 +8484,7 @@
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -8009,9 +8495,9 @@
 
             removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
-                    //alert(k + ':' + v);
+                    // alert(k + ':' + v);
                     if (_.isNull(v) || _.isUndefined(v) || v === '') {
-                        //alert('remove' + k + ':' + v);
+                        // alert('remove' + k + ':' + v);
                         delete objArray[k];
                     }
 
@@ -8021,8 +8507,8 @@
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
@@ -8043,10 +8529,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -8057,10 +8544,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -8101,8 +8589,8 @@
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
@@ -8124,10 +8612,10 @@
             scope.charges = [];
             scope.restrictDate = new Date();
             scope.formData.expectedFirstDepositOnDate = {};
-            //interest rate chart details
+            // interest rate chart details
             scope.chart = {};
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
 
             resourceFactory.recurringDepositAccountResource.get({accountId: scope.accountId, template: 'true', associations: 'charges'}, function (data) {
                 scope.data = data;
@@ -8176,7 +8664,7 @@
 
                 scope.chart = data.accountChart;
                 scope.chartSlabs = scope.chart.chartSlabs;
-                //format chart date values
+                // format chart date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                     scope.fromDate.date = new Date(fromDate);
@@ -8231,20 +8719,28 @@
                     scope.formData.recurringDepositFrequency = data.recurringDepositFrequency;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                     scope.formData.withHoldTax = data.withHoldTax;
-                    /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
-                    //scope.formData.annualFeeAmount = data.annualFeeAmount;
-                    //scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
-                    //scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
+                    /*
+					 * FIX-ME: uncomment annualFeeAmount when datepicker
+					 * avialable, because it depends on the date field
+					 * 'annualFeeOnMonthDay'
+					 */
+                    // scope.formData.annualFeeAmount = data.annualFeeAmount;
+                    // scope.formData.withdrawalFeeAmount =
+					// data.withdrawalFeeAmount;
+                    // scope.formData.withdrawalFeeForTransfers =
+					// data.withdrawalFeeForTransfers;
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
                     if (data.interestCalculationType) scope.formData.interestCalculationType = data.interestCalculationType.id;
                     if (data.interestCalculationDaysInYearType) scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                     if (data.lockinPeriodFrequencyType) scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
-                    //if (data.withdrawalFeeType) scope.formData.withdrawalFeeType = data.withdrawalFeeType.id;
+                    // if (data.withdrawalFeeType)
+					// scope.formData.withdrawalFeeType =
+					// data.withdrawalFeeType.id;
 
                     scope.chart = data.accountChart;
-                    //format chart date values
+                    // format chart date values
                     if (scope.chart.fromDate) {
                         var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                         scope.fromDate.date = new Date(fromDate);
@@ -8340,8 +8836,10 @@
                     }
                 }
 
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
                 this.formData = removeEmptyValues(this.formData);
 
                 resourceFactory.recurringDepositAccountResource.update({'accountId': scope.accountId}, this.formData, function (data) {
@@ -8350,8 +8848,8 @@
             };
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -8382,8 +8880,8 @@
 
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -8393,14 +8891,14 @@
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.chart.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.productId,
+                    // savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs)),
                     isActiveChart: 'true'
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -8410,10 +8908,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -8424,10 +8923,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -8446,7 +8946,7 @@
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -8457,9 +8957,9 @@
 
             removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
-                    //alert(k + ':' + v);
+                    // alert(k + ':' + v);
                     if (_.isNull(v) || _.isUndefined(v) || v === '') {
-                        //alert('remove' + k + ':' + v);
+                        // alert('remove' + k + ':' + v);
                         delete objArray[k];
                     }
 
@@ -8469,8 +8969,8 @@
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
@@ -8491,10 +8991,11 @@
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -8505,10 +9006,11 @@
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -8549,8 +9051,8 @@
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
@@ -8847,11 +9349,15 @@
                         if (this.formData.activatedOnDate) {
                             this.formData.activatedOnDate = dateFilter(this.formData.activatedOnDate, scope.df);
                         }
-                        /*} else if (scope.action == "applyAnnualFees" || scope.action == "paycharge" || scope.action == "waivecharge") {
-                         params = {accountId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, command : 'paycharge'};
-                         if (this.formData.dueDate) {
-                         this.formData.dueDate = dateFilter(this.formData.dueDate,scope.df);
-                         }*/
+                        /*
+						 * } else if (scope.action == "applyAnnualFees" ||
+						 * scope.action == "paycharge" || scope.action ==
+						 * "waivecharge") { params = {accountId :
+						 * routeParams.id, resourceType : 'charges', chargeId :
+						 * routeParams.chargeId, command : 'paycharge'}; if
+						 * (this.formData.dueDate) { this.formData.dueDate =
+						 * dateFilter(this.formData.dueDate,scope.df); }
+						 */
                     } else if (scope.action === "close") {
                         if (this.formData.closedOnDate) {
                             this.formData.closedOnDate = dateFilter(this.formData.closedOnDate, scope.df);
@@ -8895,11 +9401,14 @@
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
             };
 
-            /***
-             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
-             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
-             * @param dateFieldName
-             */
+            /*******************************************************************
+			 * we are using
+			 * orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter
+			 * to sort fields in ui api returns dates in array format[yyyy, mm,
+			 * dd], converting the array of dates to date object
+			 * 
+			 * @param dateFieldName
+			 */
             scope.convertDateArrayToObject = function(dateFieldName){
                 for(var i in scope.savingaccountdetails.transactions){
                     scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
@@ -8952,14 +9461,14 @@
                             route.reload();
                         });
                         break;
-                    /*case "applyAnnualFees":
-                        location.path('/savingaccountcharge/' + accountId + '/applyAnnualFees/' + scope.annualChargeId);
-                        break;
-                    case "transferFunds":
-                        if (scope.savingaccountdetails.clientId) {
-                            location.path('/accounttransfers/fromsavings/' + accountId);
-                        }
-                        break;*/
+                    /*
+					 * case "applyAnnualFees":
+					 * location.path('/savingaccountcharge/' + accountId +
+					 * '/applyAnnualFees/' + scope.annualChargeId); break; case
+					 * "transferFunds": if (scope.savingaccountdetails.clientId) {
+					 * location.path('/accounttransfers/fromsavings/' +
+					 * accountId); } break;
+					 */
                     case "close":
                         location.path('/recurringdepositaccount/' + accountId + '/close');
                         break;
@@ -9149,10 +9658,11 @@
                 }
 
 
-                /*var annualdueDate = [];
-                 annualdueDate = data.annualFee.feeOnMonthDay;
-                 annualdueDate.push(2013);
-                 scope.annualdueDate = new Date(annualdueDate);*/
+                /*
+				 * var annualdueDate = []; annualdueDate =
+				 * data.annualFee.feeOnMonthDay; annualdueDate.push(2013);
+				 * scope.annualdueDate = new Date(annualdueDate);
+				 */
                 resourceFactory.standingInstructionTemplateResource.get({fromClientId: scope.savingaccountdetails.clientId,fromAccountType: 2,fromAccountId: routeParams.id},function (response) {
                     scope.standinginstruction = response;
                     scope.searchTransaction();
@@ -9396,7 +9906,7 @@
                     {id: 4, value: "yearly"}
                 ];
                 scope.repeatsEveryOptions = ["1", "2", "3"];
-                //to display default in select boxes
+                // to display default in select boxes
                 scope.formData = {
                     repeating: 'true',
                     frequency: scope.repeatsOptions[0].id,
@@ -9635,7 +10145,7 @@
                 scope.cancel = "#/groups"
             }
 
-            //return input type
+            // return input type
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
@@ -9836,7 +10346,7 @@
                 ];
                 scope.repeatsEveryOptions = [1, 2, 3];
                 scope.selectedPeriod(scope.calendarData.frequency.id);
-                //to display default in select boxes
+                // to display default in select boxes
                 scope.formData = {
                     repeating: scope.calendarData.repeating,
                     frequency: scope.calendarData.frequency.id,
@@ -9847,13 +10357,13 @@
                         scope.formData.interval = scope.repeatsEveryOptions[i];
                     }
                 }
-                //update interval option
+                // update interval option
                 for (var i in scope.repeatsEveryOptions) {
                     if (scope.repeatsEveryOptions[i] == scope.calendarData.interval) {
                         scope.formData.interval = scope.repeatsEveryOptions[i];
                     }
                 }
-                //update radio button option
+                // update radio button option
                 if (scope.formData.frequency == 2) {
                     scope.formData.repeatsOnDay = scope.calendarData.repeatsOnDay.id;
                 }
@@ -9934,7 +10444,10 @@
             resourceFactory.groupMeetingResource.getMeetingInfo({groupId: routeParams.groupId, templateSource: 'template', calenderId: routeParams.calendarId}, function (data) {
                 scope.clients = data.clients;
                 scope.attendanceOptions = data.attendanceTypeOptions;
-                /*the following code help to display default attendance type is 'present'*/
+                /*
+				 * the following code help to display default attendance type is
+				 * 'present'
+				 */
                 for (var i = 0; i < scope.clients.length; i++) {
                     scope.clients[i].attendanceType = data.attendanceTypeOptions[0].id;
                 }
@@ -10501,11 +11014,12 @@
 
             resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false, manualCharge: true}, function (data) {
                 scope.glAccounts = data;
-                /*for(var i = 0 ; i < scope.glAccounts.length; i++) {
-
-                    if(scope.glAccounts[i].type.id != 4)
-                        scope.glAccounts.remove(scope.glAccounts[i]) ;
-                }*/
+                /*
+				 * for(var i = 0 ; i < scope.glAccounts.length; i++) {
+				 * 
+				 * if(scope.glAccounts[i].type.id != 4)
+				 * scope.glAccounts.remove(scope.glAccounts[i]) ; }
+				 */
             });
 
 
@@ -10540,7 +11054,7 @@
             scope.formData = {};
             scope.formData.date= new Date();
             scope.formData.amount = routeParams.amount;
-            //scope.formData.comments;
+            // scope.formData.comments;
             scope.loanId = routeParams.id;
             scope.chargeId = routeParams.chargeId;
             scope.restrictDate = new Date();
@@ -10552,7 +11066,7 @@
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
-                //this.formData.glAccountId = this.dbAccount.id;
+                // this.formData.glAccountId = this.dbAccount.id;
                 this.formData.chargeId = routeParams.chargeId;
                 if (this.formData.date) {
                     this.formData.date = dateFilter(this.formData.date, scope.df);
@@ -10609,11 +11123,11 @@
             scope.days = [] ;
             scope.months = [] ;
             var i = 0 ;
-            //load days in this days array
+            // load days in this days array
             for(i = 0 ; i < 31; i++) {
                 scope.days.push(i+1) ;
             }
-            //load months in this months array
+            // load months in this months array
             for(i = 0 ; i < 12; i++) {
                 scope.months.push(i+1) ;
             }
@@ -10650,7 +11164,7 @@
                         }else if(scope.loandetails.amortizationType.code == 'amortizationType.equal.installments') {
                             scope.enableInstallment = true ;
                         }
-                    }else { //invalid case. don't allow anything to be modified
+                    }else { // invalid case. don't allow anything to be modified
                         scope.enablePrincipal = false ;
                         scope.enableInstallment = false ;
                     }
@@ -11074,8 +11588,8 @@
 
             scope.previewRepayment = false;
             scope.formData = {};
-            scope.chargeFormData = {}; //For charges
-            scope.collateralFormData = {}; //For collaterals
+            scope.chargeFormData = {}; // For charges
+            scope.collateralFormData = {}; // For collaterals
             scope.collaterals = [];
             scope.restrictDate = new Date();
             scope.date = {};
@@ -11113,7 +11627,7 @@
                 scope.formData.loanPurposeId = data.loanPurposeId;
                 scope.formData.externalId = data.externalId;
 
-                //update collaterals
+                // update collaterals
                 if (scope.loanaccountinfo.collateral) {
                     for (var i in scope.loanaccountinfo.collateral) {
                         scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
@@ -11284,7 +11798,8 @@
             };
 
             scope.previewRepayments = function () {
-                // Make sure charges and collaterals are empty before initializing.
+                // Make sure charges and collaterals are empty before
+				// initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
 
@@ -11340,7 +11855,8 @@
 
 
             scope.submit = function () {
-                // Make sure charges and collaterals are empty before initializing.
+                // Make sure charges and collaterals are empty before
+				// initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
 
@@ -12481,7 +12997,8 @@
             scope.requestIdentifier = "clientId";
             scope.inparams = { resourceType: 'template', templateType: 'jlgbulk', lendingStrategy: 300 };
             scope.selectedProduct = {};
-            scope.loanApplicationCommonData = {};  // user set common data for all the loan applications
+            scope.loanApplicationCommonData = {};  // user set common data for
+													// all the loan applications
             scope.loanApplicationCommonData.submittedOnDate = new Date();
             scope.loanApplicationCommonData.expectedDisbursementDate = new Date();
             scope.loanApplicationCommonData.syncDisbursementWithMeeting = true;
@@ -12523,7 +13040,8 @@
                         client.charges = data.product.charges.map(function(charge){
                             charge.isDeleted = false;
                             return _.clone(charge);});
-                        // return was returing the reference, instead the value, so added _.clone
+                        // return was returing the reference, instead the value,
+						// so added _.clone
                         return client;
                     });
 
@@ -12577,7 +13095,7 @@
                 }
             };
 
-            //return input type
+            // return input type
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
@@ -12758,8 +13276,8 @@
             scope.groupId = routeParams.groupId;
             scope.restrictDate = new Date();
             scope.formData = {};
-            scope.chargeFormData = {}; //For charges
-            scope.collateralFormData = {}; //For collaterals
+            scope.chargeFormData = {}; // For charges
+            scope.collateralFormData = {}; // For collaterals
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
             scope.formDat = {};
@@ -12867,7 +13385,8 @@
                     columnHeaderData.splice(0, 1);
                 }
             };
-            //Wizard is creating new scope on every step. So resetting the variable here
+            // Wizard is creating new scope on every step. So resetting the
+			// variable here
             scope.resetPreviewFlag = function() {
                 scope.previewRepayment =  !scope.previewRepayment;
             };
@@ -12966,7 +13485,8 @@
             };
 
             scope.previewRepayments = function () {
-                // Make sure charges and collaterals are empty before initializing.
+                // Make sure charges and collaterals are empty before
+				// initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
                 if(_.isUndefined(scope.formData.datatables) || (!_.isUndefined(scope.formData.datatables) && scope.formData.datatables.length == 0)) {
@@ -13065,12 +13585,22 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
 
-                this.formData.interestChargedFromDate = reqThirdDate;
-                this.formData.repaymentsStartingFromDate = reqFourthDate;
+     //         this.formData.interestChargedFromDate = reqThirdDate;
+                this.formData.repaymentsStartingFromDate = "";
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.inparams.templateType;
-                this.formData.expectedDisbursementDate = reqSecondDate;
+      //          this.formData.expectedDisbursementDate = reqSecondDate;
+                var connewdate = new Date(reqFirstDate);                	
+                var oldate =	new Date(connewdate.getFullYear(), connewdate.getMonth(), 1);                
+                var months= ["January","February","March","April","May","June","July",
+                    "August","September","October","November","December"];               
+                var formatted_date = oldate.getDate() + " " + months[oldate.getMonth()] + " " + oldate.getFullYear();
+                this.formData.expectedDisbursementDate = formatted_date;
+                this.formData.interestChargedFromDate = formatted_date;
+                
+                
+
                 this.formData.submittedOnDate = reqFirstDate;
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
@@ -13126,6 +13656,7 @@
                     }
                     else
                     {
+                     //   scope.formData.fixedEmiAmount=Math.round((scope.formData.fixedEmiAmount+1)/5)*5;
                         scope.formData.fixedEmiAmount=scope.formData.fixedEmiAmount+1;
                     }
                 
@@ -13148,7 +13679,7 @@
 
             uiConfigService.appendConfigToScope(scope);
 
-            //return input type
+            // return input type
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
@@ -13172,7 +13703,8 @@
                     WizardHandler.wizard().next();
                     return;
                 }
-                // Make sure charges and collaterals are empty before initializing.
+                // Make sure charges and collaterals are empty before
+				// initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
@@ -13562,6 +14094,7 @@
                     case "foreclosure":
                         location.path('loanforeclosure/' + accountId);
                         break;
+                      
                 }
             };
 
@@ -14836,22 +15369,20 @@
                 },2000);
             });
 
-            /*This logic is no longer required as enter button is binded with text field for submit.
-            $('#pwd').keypress(function (e) {
-                if (e.which == 13) {
-                    scope.login();
-                }
-            });*/
+            /*
+			 * This logic is no longer required as enter button is binded with
+			 * text field for submit. $('#pwd').keypress(function (e) { if
+			 * (e.which == 13) { scope.login(); } });
+			 */
 
-            /*$('#repeatPassword').keypress(function (e) {
-                if (e.which == 13) {
-                    scope.updatePassword();
-                }
-            });*/
+            /*
+			 * $('#repeatPassword').keypress(function (e) { if (e.which == 13) {
+			 * scope.updatePassword(); } });
+			 */
 
             scope.updatePassword = function (){
                 resourceFactory.userListResource.update({'userId': scope.loggedInUserId}, scope.passwordDetails, function (data) {
-                    //clear the old authorization token
+                    // clear the old authorization token
                     httpService.cancelAuthorization();
                     scope.authenticationFailed = false;
                     scope.loginCredentials.password = scope.passwordDetails.password;
@@ -14920,7 +15451,7 @@
             });
 
             uiConfigService.init();
-            //hides loader
+            // hides loader
             scope.domReady = true;
             scope.activity = {};
             scope.activityQueue = [];
@@ -14961,24 +15492,27 @@
 
             $rootScope.hasPermission = function (permission) {
                 permission = permission.trim();
-                //FYI: getting all permissions from localstorage, because if scope changes permissions array will become undefined
+                // FYI: getting all permissions from localstorage, because if
+				// scope changes permissions array will become undefined
                 $rootScope.permissionList = localStorageService.getFromLocalStorage('userPermissions');
-                //If user is a Super user return true
+                // If user is a Super user return true
                 if ($rootScope.permissionList && _.contains($rootScope.permissionList, "ALL_FUNCTIONS")) {
                     return true;
                 } else if ($rootScope.permissionList && permission && permission != "") {
-                    //If user have all read permission return true
+                    // If user have all read permission return true
                     if (permission.substring(0, 5) == "READ_" && _.contains($rootScope.permissionList, "ALL_FUNCTIONS_READ")) {
                         return true;
                     } else if (_.contains($rootScope.permissionList, permission)) {
-                        //check for the permission if user doesn't have any special permissions
+                        // check for the permission if user doesn't have any
+						// special permissions
                         return true;
                     } else {
-                        //return false if user doesn't have permission
+                        // return false if user doesn't have permission
                         return false;
                     }
                 } else {
-                    //return false if no value assigned to has-permission directive
+                    // return false if no value assigned to has-permission
+					// directive
                     return false;
                 }
                 ;
@@ -14992,7 +15526,7 @@
                 localStorageService.addToLocalStorage('Location', scope.activityQueue);
             });
 
-            //Logout the user if Idle
+            // Logout the user if Idle
             scope.started = false;
             scope.$on('$idleTimeout', function () {
                 scope.logout();
@@ -15044,7 +15578,7 @@
                 var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
                 var shares = {name: "label.search.scope.shares", value: "shares"};
                 var loans = {name: "label.search.scope.savings", value: "savings"};
-                //clients,groups
+                // clients,groups
                 scope.searchScopes = [all,clients,savings];
                 scope.currentScope = all;
             }
@@ -15242,9 +15776,11 @@
                         break;
                         // found '#' and save position of it
                     }
-                }//for
+                }// for
 
-                var whereweare = actualadr.substring(lastchar); // cut full URL to after-'#' part
+                var whereweare = actualadr.substring(lastchar); // cut full URL
+																// to after-'#'
+																// part
 
                 // string after '#' is compared with model
                 var addrfound = false;
@@ -15252,7 +15788,8 @@
                 {
                     window.open(addresses[5]);
                     addrfound = true;
-                }// '/reports/...' are exception -> link to Search in Documentation word 'report'
+                }// '/reports/...' are exception -> link to Search in
+					// Documentation word 'report'
                 else{
                     for(var i = 0; i< addrmodels.length; i++)
                     {
@@ -15266,11 +15803,20 @@
                                 // model found -> open address and break
                             }
                         }
-                    }//for
-                }//else
-                if(addrfound == false) window.open(addresses[10]); // substring not matching to any model -> open start user manual page
+                    }// for
+                }// else
+                if(addrfound == false) window.open(addresses[10]); // substring
+																	// not
+																	// matching
+																	// to any
+																	// model ->
+																	// open
+																	// start
+																	// user
+																	// manual
+																	// page
 
-            };//helpf
+            };// helpf
 
             sessionManager.restore(function (session) {
                 scope.currentSession = session;
@@ -15570,7 +16116,7 @@
                 }
             });
 
-            //to retrieve last 8 recent activities
+            // to retrieve last 8 recent activities
             for (var rev = scope.recent.length - 1; rev > 0; rev--) {
                 scope.recentArray.push(scope.recent[rev]);
             }
@@ -15586,23 +16132,23 @@
                 });
             }
             scope.unique(scope.recentArray);
-            //recent activities retrieved
+            // recent activities retrieved
 
-            //retrieve last 8 recent activities
+            // retrieve last 8 recent activities
             for (var l = 0; l < 8; l++) {
                 scope.recents.push(scope.uniqueArray[l]);
             }
             // 8 recent activities retrieved
 
-            //count duplicates
+            // count duplicates
             var i = scope.recent.length;
             var obj = {};
             while (i) {
                 obj[scope.recent[--i]] = (obj[scope.recent[i]] || 0) + 1;
             }
-            //count ends here
+            // count ends here
 
-            //to sort based on counts
+            // to sort based on counts
             var sortable = [];
             for (var i in obj) {
                 sortable.push([i, obj[i]]);
@@ -15610,16 +16156,16 @@
             sortable.sort(function (a, b) {
                 return a[1] - b[1]
             });
-            //sort end here
+            // sort end here
 
-            //to retrieve the locations from sorted array
+            // to retrieve the locations from sorted array
             var sortedArray = [];
             for (var key in sortable) {
                 sortedArray.push(sortable[key][0]);
             }
-            //retrieving ends here
+            // retrieving ends here
 
-            //retrieve last 8 frequent actions
+            // retrieve last 8 frequent actions
             for (var freq = sortedArray.length - 1; freq > sortedArray.length - 11; freq--) {
                 if (sortedArray[freq]) {
                     if (sortedArray[freq] != '/') {
@@ -16094,7 +16640,7 @@
             scope.isCollapsed = true;
             scope.approveData = {};
             scope.restrictDate = new Date();
-            //this value will be changed within each specific tab
+            // this value will be changed within each specific tab
             scope.requestIdentifier = "loanId";
 
             scope.itemsPerPage = 15;
@@ -16504,7 +17050,8 @@ scope.search3 = function () {
             idToNodeMap[data[i].id] = data[i];
         }
 
-    // resourceFactory.loanResource.getAllLoans({limit: '1000', sqlSearch: 'l.loan_status_id in (100,200) '}, function (loanData) {
+    // resourceFactory.loanResource.getAllLoans({limit: '1000', sqlSearch:
+	// 'l.loan_status_id in (100,200) '}, function (loanData) {
         resourceFactory.loanResource.getAllLoans({limit: '1000', sqlSearch: 'l.loan_status_id in (100,200)and l.submittedon_date like \"' + reqAsLoanDate + '%%\"'}, function (loanData) {
         scope.loans = loanData.pageItems;
         for (var i in scope.loans) {
@@ -16925,7 +17472,10 @@ scope.search3 = function () {
             });
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
                 timeout.cancel(scope.timer);
-                localStorageService.removeFromLocalStorage("notifications"); //remove all local notifications
+                localStorageService.removeFromLocalStorage("notifications"); // remove
+																				// all
+																				// local
+																				// notifications
                 timeout(scope.countFromLastResponse(), 1000);
                 scope.fetchUnreadNotifications();
             });
@@ -17197,17 +17747,21 @@ scope.search3 = function () {
             };
         }
     });
-    mifosX.ng.application.controller('CreateEmployeeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateEmployeeController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateEmployeeController', ['$scope','$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateEmployeeController]).run(function ($log) {
         $log.info("CreateEmployeeController initialized");
     });
 }(mifosX.controllers || {}));
 ;(function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateOfficeController: function (scope, resourceFactory, location, dateFilter) {
+        CreateOfficeController: function (scope,routeParams, resourceFactory, location, dateFilter) {
             scope.offices = [];
             scope.first = {};
+            scope.addressData={};
+            scope.contactData={};
             scope.first.date = new Date();
             scope.restrictDate = new Date();
+            scope.contactArray = [];
+            scope.addressArray = [];
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 scope.formData = {
@@ -17217,6 +17771,13 @@ scope.search3 = function () {
                 resourceFactory.holidayResource.getAllActiveHols({officeId: scope.formData.parentId}, function (data) {
                     scope.holidays = data;
                 });
+            });
+
+resourceFactory.clientaddressFields.get(function(data){
+                scope.addressTypes=data.addressTypeIdOptions;
+                //$scope.addressTypeId=data.addressTypeIdOptions;
+                scope.countryOptions=data.countryIdOptions;
+                scope.stateOptions=data.stateProvinceIdOptions;
             });
 
             scope.selectHoliday=[];
@@ -17244,6 +17805,7 @@ scope.search3 = function () {
                 }
             };
 
+
             scope.checkall = function () {
 
 
@@ -17262,20 +17824,86 @@ scope.search3 = function () {
 
             };
 
+// address
+scope.addAddress = function () {
+    scope.addressArray.push({});
+}
+
+scope.removeAddress = function (index) {
+    scope.addressArray.splice(index, 1);
+}
+// end of address
+
+
 
             scope.submit = function () {
+/**
+                 * Habile changes for contact and address
+                 */
+               
+               scope.addressData={};
+               
+                // scope.enableAddress=data.isAddressEnabled;
+                for (var i = 0; i < scope.addressArray.length; i++) {
+                    var temp = new Object();
+                    if (scope.addressArray[i].addressType) {
+                        temp.addressTypeId=scope.addressArray[i].addressType;
+                      
+                    }
+                    if (scope.addressArray[i].street) {
+                        temp.street = scope.addressArray[i].street;
+                    }
+                    if (scope.addressArray[i].addressLine1) {
+                        temp.addressLine1 = scope.addressArray[i].addressLine1;
+                    }
+                    if (scope.addressArray[i].addressLine2) {
+                        temp.addressLine2 = scope.addressArray[i].addressLine2;
+                    }
+                    if (scope.addressArray[i].addressLine3) {
+                        temp.addressLine3 = scope.addressArray[i].addressLine3;
+                    }
+                    if (scope.addressArray[i].city) {
+                        temp.city = scope.addressArray[i].city;
+                    }
+                    if (scope.addressArray[i].stateProvinceId) {
+                        temp.stateProvinceId = scope.addressArray[i].stateProvinceId;
+                    }
+                    if (scope.addressArray[i].country) {
+                        temp.countryId = scope.addressArray[i].country;
+                    }
+                    if (scope.addressArray[i].postalCode) {
+                        temp.postalCode = scope.addressArray[i].postalCode;
+                    }
+                    temp.entityType= "office";
+                    
+                    scope.addressData=temp;
+                }
+                /**
+                 * End of the habile changes
+                 */
                 this.formData.locale = scope.optlang.code;
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.dateFormat = scope.df;
                 this.formData.openingDate = reqDate;
                 this.formData.selectedHoliday = scope.selectHoliday;
                 resourceFactory.officeResource.save(this.formData, function (data) {
+if(data.resourceId!="" && data.resourceId!=null)
+                    {
+                    scope.officeId= data.resourceId;
+                    if(!(angular.equals({},scope.addressData)))
+                {
+                scope.addressData.entityID=scope.officeId;
+                resourceFactory.clientAddress.save({'clientId': scope.officeId,'type':temp.addressTypeId},scope.addressData,function (data) {
+                            console.log("address success");
+                        });
+                    }
+                }
                     location.path('/viewoffice/' + data.resourceId);
                 });
             };
         }
     });
-    mifosX.ng.application.controller('CreateOfficeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateOfficeController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateOfficeController', ['$scope','$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateOfficeController]).run(function ($log) {
         $log.info("CreateOfficeController initialized");
     });
 }(mifosX.controllers || {}));
@@ -17343,8 +17971,10 @@ scope.search3 = function () {
                         }
                     }
                 }
-                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
-                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                // We need to remove selected items outside of above loop. If we
+				// don't remove, we can see empty item appearing
+                // If we remove available items in above loop, all items will
+				// not be moved to selectedRoles
                 for (var i in this.available) {
                     for (var j in scope.selectedRoles) {
                         if (scope.selectedRoles[j].id == this.available[i]) {
@@ -17365,8 +17995,10 @@ scope.search3 = function () {
                         }
                     }
                 }
-                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
-                //If we remove selected items in above loop, all items will not be moved to availableRoles
+                // We need to remove selected items outside of above loop. If we
+				// don't remove, we can see empty item appearing
+                // If we remove selected items in above loop, all items will not
+				// be moved to availableRoles
                 for (var i in this.selected) {
                     for (var j in scope.availableRoles) {
                         if (scope.availableRoles[j].id == this.selected[i]) {
@@ -17414,7 +18046,11 @@ scope.search3 = function () {
             scope.deleteCur = function (code) {
                 for (var i = 0; i < scope.selectedCurrOptions.length; i++) {
                     if (scope.selectedCurrOptions[i].code == code) {
-                        scope.selectedCurrOptions.splice(i, 1);  //removes 1 element at position i
+                        scope.selectedCurrOptions.splice(i, 1);  // removes 1
+																	// element
+																	// at
+																	// position
+																	// i
                         break;
                     }
                 }
@@ -17425,7 +18061,9 @@ scope.search3 = function () {
                     scope.selectedCurrOptions.push(scope.selected);
                     for (var i = 0; i < scope.allCurrOptions.length; i++) {
                         if (scope.allCurrOptions[i].code == scope.selected.code) {
-                            scope.allCurrOptions.splice(i, 1);  //removes 1 element at position i
+                            scope.allCurrOptions.splice(i, 1);  // removes 1
+																// element at
+																// position i
                             break;
                         }
                     }
@@ -17636,7 +18274,7 @@ scope.search3 = function () {
 }(mifosX.controllers || {}));;(function (module) {
     mifosX.controllers = _.extend(module, {
         EditPaymentTypeController: function (scope, routeParams, resourceFactory, location, $uibModal, route) {
-            /*scope.formData = {};*/
+            /* scope.formData = {}; */
             resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id}, function (data) {
                 scope.formData = {
                     name: data.name,
@@ -17689,7 +18327,8 @@ scope.search3 = function () {
 
                 scope.userId = data.id;
                 scope.offices = data.allowedOffices;
-                //scope.availableRoles = data.availableRoles.concat(data.selectedRoles);
+                // scope.availableRoles =
+				// data.availableRoles.concat(data.selectedRoles);
                 scope.formData.passwordNeverExpires = data.passwordNeverExpires;
             });
             scope.getOfficeStaff = function(){
@@ -17710,8 +18349,10 @@ scope.search3 = function () {
                         }
                     }
                 }
-                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
-                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                // We need to remove selected items outside of above loop. If we
+				// don't remove, we can see empty item appearing
+                // If we remove available items in above loop, all items will
+				// not be moved to selectedRoles
                 for (var i in this.available) {
                     for (var j in scope.selectedRoles) {
                         if (scope.selectedRoles[j].id == this.available[i]) {
@@ -17732,8 +18373,10 @@ scope.search3 = function () {
                         }
                     }
                 }
-                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
-                //If we remove selected items in above loop, all items will not be moved to availableRoles
+                // We need to remove selected items outside of above loop. If we
+				// don't remove, we can see empty item appearing
+                // If we remove selected items in above loop, all items will not
+				// be moved to availableRoles
                 for (var i in this.selected) {
                     for (var j in scope.availableRoles) {
                         if (scope.availableRoles[j].id == this.selected[i]) {
@@ -17773,7 +18416,16 @@ scope.search3 = function () {
             ];
             resourceFactory.workingDaysResource.get(function (data) {
                 scope.selectedRepaymentType = data.repaymentRescheduleType.id;
-                scope.repaymentRescheduleOptions = data.repaymentRescheduleOptions ; //Good have template options as part of a single REST call
+                scope.repaymentRescheduleOptions = data.repaymentRescheduleOptions ; // Good
+																						// have
+																						// template
+																						// options
+																						// as
+																						// part
+																						// of a
+																						// single
+																						// REST
+																						// call
                 scope.extendTermForDailyRepayments = data.extendTermForDailyRepayments;
                 var temp = data.recurrence.split("=");
                 var days = temp[3].split(",");
@@ -17935,14 +18587,14 @@ scope.search3 = function () {
                     scope.permissions = tempPermissionUIData[grouping];
                     scope.previousGrouping = grouping;
                 };
-                //by default show portfolio setting
+                // by default show portfolio setting
                 scope.showPermissions('portfolio');
 
                 scope.permissionName = function (name) {
                     name = name || "";
-                    //replace '_' with ' '
+                    // replace '_' with ' '
                     name = name.replace(/_/g, " ");
-                    //for reorts replace read with view
+                    // for reorts replace read with view
                     if (scope.previousGrouping == 'report') {
                         name = name.replace(/READ/g, "View");
                     }
@@ -18191,9 +18843,50 @@ scope.search3 = function () {
     mifosX.controllers = _.extend(module, {
         ViewOfficeController: function (scope, routeParams, route, location, resourceFactory) {
             scope.charges = [];
-
+            scope.addresses = [];
+            var entityname = "ADDRESS";
             resourceFactory.officeResource.get({officeId: routeParams.id}, function (data) {
                 scope.office = data;
+            });
+            
+            scope.routeTo = function () {
+                location.path('/address/' + routeParams.id + '/' + 'office');
+            }
+            scope.routeToEdit = function (clientId, addressId) {
+                location.path('/editAddress/' + clientId + '/' + addressId + '/' + routeParams.id + '/' + 'office');
+            }
+            //address
+            scope.view = {};
+            scope.view.data = [];
+            var entityname = "ADDRESS";
+            scope.ChangeAddressStatus = function (id, status, addressId) {
+                scope.addressId = addressId;
+
+                $uibModal.open({
+                    templateUrl: 'deleteBorrowerAddress.html',
+                    controller: addressDeleteCtrl
+                });
+            }
+            var addressDeleteCtrl = function ($scope, $uibModalInstance) {
+
+                $scope.delete = function () {
+
+                    resourceFactory.deleteAddress.delete({ addressId: scope.addressId }, function (data) {
+                        $uibModalInstance.close('delete');
+                        route.reload();
+                    })
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+
+            scope.showAddAddressButton = true;
+            resourceFactory.addressListByEntity.get({ clientId: 0, 'status': "300", 'entityId': routeParams.id, 'entityType': 'office' }, function (data) {
+                scope.addresses = data;
+                if (scope.addresses.length >= 1) {
+                    scope.showAddAddressButton = false;
+                }
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_office'}, function (data) {
@@ -18300,8 +18993,11 @@ scope.search3 = function () {
             scope.permissions = [];
             scope.groupings = [];
             scope.formData = {};
-            scope.checkboxesChanged = false; // this flag is informing backup-system if user started editing
-            var bValuesOnly = []; // array for 1-0 values only from permission-checkboxes
+            scope.checkboxesChanged = false; // this flag is informing
+												// backup-system if user started
+												// editing
+            var bValuesOnly = []; // array for 1-0 values only from
+									// permission-checkboxes
 
             var tempPermissionUIData = [];
             resourceFactory.rolePermissionResource.get({roleId: routeParams.id}, function (data) {
@@ -18322,13 +19018,15 @@ scope.search3 = function () {
                 }
 
                 scope.backupCheckValues = function()
-                {//backup -> save the data from formData before editing to boolean array
+                {// backup -> save the data from formData before editing to
+					// boolean array
                     for(var i = 0; i< this.permissions.permissions.length; i++)
                     {
                         var temp = this.formData[this.permissions.permissions[i].code];
                         bValuesOnly.push(temp);
                     }
-                    checkboxesChanged = true; // user started editing - set flag to true
+                    checkboxesChanged = true; // user started editing - set
+												// flag to true
                 };
 
                 scope.isRoleEnable = function(value) {
@@ -18407,8 +19105,10 @@ scope.search3 = function () {
                     permissionData.permissions = this.formData;
                     resourceFactory.rolePermissionResource.update({roleId: routeParams.id}, permissionData, function (data) {
                         route.reload();
-                        backupCheckValues();// reload current data in array (backup)
-                        checkboxesChanged = false; // user finished editing - set flag to false
+                        backupCheckValues();// reload current data in array
+											// (backup)
+                        checkboxesChanged = false; // user finished editing -
+													// set flag to false
                         scope.isDisabled = true;
 
                     });
@@ -18422,14 +19122,14 @@ scope.search3 = function () {
                     scope.permissions = tempPermissionUIData[grouping];
                     scope.previousGrouping = grouping;
                 };
-                //by default show special permissions
+                // by default show special permissions
                 scope.showPermissions('special');
 
                 scope.permissionName = function (name) {
                     name = name || "";
-                    //replace '_' with ' '
+                    // replace '_' with ' '
                     name = name.replace(/_/g, " ");
-                    //for reorts replace read with view
+                    // for reorts replace read with view
                     if (scope.previousGrouping == 'report') {
                         name = name.replace(/READ/g, "View");
                     }
@@ -18489,7 +19189,8 @@ scope.search3 = function () {
                         bValuesOnly.pop(); // erase old elements in flag-array
                     }
 
-                    checkboxesChanged = false; // user canceled editing - set flag to false
+                    checkboxesChanged = false; // user canceled editing - set
+												// flag to false
                 };
 
 
@@ -18523,7 +19224,7 @@ scope.search3 = function () {
                 }
             };
 
-            /* scope.cancel="#tellers";*/
+            /* scope.cancel="#tellers"; */
             scope.allocate = function () {
                 this.formData.locale = scope.optlang.code;
                 var tDate = dateFilter(scope.formData.txnDate, scope.df);
@@ -18763,7 +19464,7 @@ scope.search3 = function () {
             resourceFactory.tellerCashierTemplateResource.get({tellerId: routeParams.tellerId}, function (data) {
                 scope.office= data.officeName;
                 scope.staffs = data.staffOptions;
-                /*scope.formData.staffId = scope.staffs.id;*/
+                /* scope.formData.staffId = scope.staffs.id; */
             });
 
             scope.submit = function () {
@@ -18874,12 +19575,13 @@ scope.search3 = function () {
                     location.path('/tellers');
                 });
             };
-            /*scope.delete = function (tellerId, cashierId) {
-                resourceFactory.tellerCashierResource.delete({tellerId: tellerId, cashierId: cashierId}, function (data) {
-                    location.path('/tellers/' + tellerId + "/cashiers/");
-                });
-
-            };*/
+            /*
+			 * scope.delete = function (tellerId, cashierId) {
+			 * resourceFactory.tellerCashierResource.delete({tellerId: tellerId,
+			 * cashierId: cashierId}, function (data) {
+			 * location.path('/tellers/' + tellerId + "/cashiers/"); });
+			 *  };
+			 */
 
             scope.deepCopy = function (obj) {
                 if (Object.prototype.toString.call(obj) === '[object Array]') {
@@ -19096,7 +19798,7 @@ scope.search3 = function () {
                 });
 
                 $scope.create = function () {
-                    //$scope.formData = {};
+                    // $scope.formData = {};
                     resourceFactory.entityDatatableChecksResource.save($scope.checkForm, function (data) {
                         $uibModalInstance.close('create');
                         route.reload();
@@ -19232,7 +19934,7 @@ scope.search3 = function () {
             }
 
             scope.doBlur = function(index) {
-                //console.log("Blur") ;
+                // console.log("Blur") ;
             }
         }
     });
@@ -19446,7 +20148,8 @@ scope.search3 = function () {
                             selectOne: data.data[i].row[6],
                             selectAll: data.data[i].row[7],
                             parentParameterName: data.data[i].row[8],
-                            inputName: "R_" + data.data[i].row[1] //model name
+                            inputName: "R_" + data.data[i].row[1] // model
+																	// name
                         };
                         scope.reqFields.push(temp);
                         if (temp.displayType == 'select' && temp.parentParameterName == null) {
@@ -19608,13 +20311,13 @@ scope.search3 = function () {
                         }
                     }
                 }
-                /*for (var i = 0; i < scope.reqFields.length; i++) {
-                    var tempParam = scope.reqFields[i];
-                    if (tempParam.displayType == 'none') {
-                        reportParams += ","
-                        reportParams += encodeURIComponent(tempParam.inputName) + ":" + encodeURIComponent("-1");
-                    }
-                }*/
+                /*
+				 * for (var i = 0; i < scope.reqFields.length; i++) { var
+				 * tempParam = scope.reqFields[i]; if (tempParam.displayType ==
+				 * 'none') { reportParams += "," reportParams +=
+				 * encodeURIComponent(tempParam.inputName) + ":" +
+				 * encodeURIComponent("-1"); } }
+				 */
                 return reportParams;
             };
 
@@ -19733,17 +20436,17 @@ scope.search3 = function () {
             scope.step = '-';
 
             scope.submit = function () {
-                //onclick Disable proceed button to avoid multiple cilent creation
+                // onclick Disable proceed button to avoid multiple cilent
+				// creation
                 setDisableTimeout();
 
                 if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
                     WizardHandler.wizard().next();
-                    /*if (WizardHandler.wizard().getCurrentStep() == 2) {
-                     if (scope.validateFiles())
-                     WizardHandler.wizard().next();
-                     } else {
-                     WizardHandler.wizard().next();
-                     }*/
+                    /*
+					 * if (WizardHandler.wizard().getCurrentStep() == 2) { if
+					 * (scope.validateFiles()) WizardHandler.wizard().next(); }
+					 * else { WizardHandler.wizard().next(); }
+					 */
                     return;
                 }
 
@@ -19754,15 +20457,18 @@ scope.search3 = function () {
                     scope.scheduledDateTime.setSeconds(scope.campaignData.time.getSeconds());
                     scope.scheduledDateTime = dateFilter(scope.scheduledDateTime, scope.dft);
                 }
-                //dateFilter(scope.campaignData.recurrenceStartDate, scope.df) + ' ' + scope.campaignData.time.getHours() + ':' + scope.campaignData.time.getMinutes() + ':' + scope.campaignData.time.getSeconds();
+                // dateFilter(scope.campaignData.recurrenceStartDate, scope.df)
+				// + ' ' + scope.campaignData.time.getHours() + ':' +
+				// scope.campaignData.time.getMinutes() + ':' +
+				// scope.campaignData.time.getSeconds();
                 scope.submissionData = {
                     providerId: scope.campaignData.smsProvider.id,
-                    //runReportId: scope.campaignData.report.reportId,
+                    // runReportId: scope.campaignData.report.reportId,
                     triggerType: scope.campaignData.triggerType.id,
                     campaignName: scope.campaignData.campaignName,
                     campaignType: 1,
                     message: scope.campaignData.campaignMessage,
-                    //paramValue: scope.paramValues,
+                    // paramValue: scope.paramValues,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     submittedOnDate: dateFilter(new Date(), scope.df),
@@ -19841,7 +20547,8 @@ scope.search3 = function () {
                             selectOne: data.data[i].row[6],
                             selectAll: data.data[i].row[7],
                             parentParameterName: data.data[i].row[8],
-                            inputName: "R_" + data.data[i].row[1] //model name
+                            inputName: "R_" + data.data[i].row[1] // model
+																	// name
                         };
                         scope.reqFields.push(temp);
                         if (temp.displayType == 'select' && temp.parentParameterName == null) {
@@ -19857,7 +20564,7 @@ scope.search3 = function () {
             } ;
 
             resourceFactory.smsCampaignResource.get({campaignId: routeParams.campaignId}, function (data) {
-                //scope.campaignData = data;
+                // scope.campaignData = data;
                 scope.campaignData.id = data.id;
                 scope.campaignData.campaignName = data.campaignName;
                 scope.campaignData.campaignMessage = data.campaignMessage;
@@ -19941,10 +20648,10 @@ scope.search3 = function () {
             };
 
             scope.getColumnHeaders = function () {
-                //scope.formData = scope.reportParams;
+                // scope.formData = scope.reportParams;
                 scope.formData.reportSource = scope.campaignData.reportName;
                 var inQueryParameters = buildReportParms();
-                //scope.formData = inQueryParameters;
+                // scope.formData = inQueryParameters;
                 resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
                     // get column headers for the given report
                     scope.reportData.columnHeaders = data.columnHeaders;
@@ -19995,10 +20702,14 @@ scope.search3 = function () {
             scope.step = '-';
 
             scope.submit = function () {
-                //scope.simpleDate = new Date(scope.campaignData.recurrenceStartDate);
-                //var simpleTime = new Date(scope.simpleDate.getTime());
-                //scope.campaignData.recurrenceStartDate = dateFilter(scope.simpleDate, scope.df);
-                //scope.campaignData.time = new Date(0, 0, 0, simpleTime.getHours(), simpleTime.getMinutes(), simpleTime.getSeconds());
+                // scope.simpleDate = new
+				// Date(scope.campaignData.recurrenceStartDate);
+                // var simpleTime = new Date(scope.simpleDate.getTime());
+                // scope.campaignData.recurrenceStartDate =
+				// dateFilter(scope.simpleDate, scope.df);
+                // scope.campaignData.time = new Date(0, 0, 0,
+				// simpleTime.getHours(), simpleTime.getMinutes(),
+				// simpleTime.getSeconds());
                 if (scope.campaignData.triggerType === 2) {
                     scope.scheduledDateTime = new Date(scope.campaignData.recurrenceStartDate);
                     scope.scheduledDateTime.setHours(scope.campaignData.time.getHours());
@@ -20009,12 +20720,12 @@ scope.search3 = function () {
 
                 scope.submissionData = {
                     providerId: scope.campaignData.smsProvider,
-                    //runReportId: scope.campaignData.report,
+                    // runReportId: scope.campaignData.report,
                     triggerType: scope.campaignData.triggerType,
                     campaignName: scope.campaignData.campaignName,
                     campaignType: scope.campaignData.campaignType,
                     message: scope.campaignData.campaignMessage,
-                    //paramValue: scope.paramValues,
+                    // paramValue: scope.paramValues,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     recurrenceStartDate: scope.scheduledDateTime,
@@ -20161,9 +20872,9 @@ scope.search3 = function () {
             };
 
             var SmsCampaignActivationCtrl = function ($scope, $uibModalInstance) {
-                //$scope.data = {activationDate: scope.activationDate};
+                // $scope.data = {activationDate: scope.activationDate};
                 $scope.activate = function () {
-                    //$scope.activationDate = scope.activationDate;
+                    // $scope.activationDate = scope.activationDate;
                     $scope.activationData = {activationDate: dateFilter($scope.activationDate, scope.df), dateFormat: scope.df, locale: scope.optlang.code}
                     resourceFactory.smsCampaignResource.withCommand({campaignId: routeParams.campaignId, command: 'activate'}, $scope.activationData, function (data) {
                         $uibModalInstance.close('activate');
@@ -20325,9 +21036,9 @@ scope.search3 = function () {
                         break ;
                 }
             }
-            //when chargeAppliesTo is savings, below logic is
-            //to display 'Due date' field, if chargeTimeType is
-            //'annual fee' or 'monthly fee'
+            // when chargeAppliesTo is savings, below logic is
+            // to display 'Due date' field, if chargeTimeType is
+            // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
                 scope.showFrequencyOptions = false;
                 if(chargeTimeType == 9){
@@ -20339,7 +21050,7 @@ scope.search3 = function () {
                             if (scope.chargeTimeTypeOptions[i].value == "Annual Fee" || scope.chargeTimeTypeOptions[i].value == "Monthly Fee") {
                                 scope.showdatefield = true;
                                 scope.repeatsEveryLabel = 'label.input.months';
-                                //to show 'repeats every' field for monthly fee
+                                // to show 'repeats every' field for monthly fee
                                 if (scope.chargeTimeTypeOptions[i].value == "Monthly Fee") {
                                     scope.repeatEvery = true;
                                 } else {
@@ -20384,8 +21095,9 @@ scope.search3 = function () {
                 };
             };
             scope.submit = function () {
-                //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to
-                //the formData
+                // when chargeTimeType is 'annual' or 'monthly fee' then
+				// feeOnMonthDay added to
+                // the formData
                 if (scope.showChargePaymentByField === false) {
                     if (scope.showdatefield === true) {
                         var reqDate = dateFilter(scope.first.date, 'dd MMMM');
@@ -20426,11 +21138,11 @@ scope.search3 = function () {
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
 
-            //interest rate details
+            // interest rate details
             scope.chart = {};
             scope.restrictDate = new Date();
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
             scope.isPrimaryGroupingByAmount = false;
 
             resourceFactory.fixedDepositProductResource.get({resourceType: 'template'}, function (data) {
@@ -20448,14 +21160,14 @@ scope.search3 = function () {
                 scope.formData.interestCalculationType = data.interestCalculationType.id;
                 scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                 scope.formData.preClosurePenalInterestOnTypeId = scope.product.preClosurePenalInterestOnTypeOptions[0].id;
-                //set chart template
+                // set chart template
                 scope.chart = scope.product.chartTemplate;
                 scope.chart.chartSlabs = [];
                 scope.formData.accountingRule = '1';
 
             });
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 
                 if (showOrHideValue == "show") {
@@ -20472,7 +21184,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -20541,7 +21253,7 @@ scope.search3 = function () {
 
                 var temp = '';
 
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -20550,7 +21262,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
@@ -20559,7 +21271,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -20580,8 +21292,10 @@ scope.search3 = function () {
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
 
                 resourceFactory.fixedDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewfixeddepositproduct/' + data.resourceId);
@@ -20589,8 +21303,8 @@ scope.search3 = function () {
             }
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -20647,15 +21361,15 @@ scope.search3 = function () {
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -20664,13 +21378,13 @@ scope.search3 = function () {
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.productId,
+                    // savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs))
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -20680,10 +21394,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -20694,10 +21409,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -20715,8 +21431,8 @@ scope.search3 = function () {
                 if(chartSlab.periodType != undefined) {
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
-                //alert("Period type id" + chartSlab.periodType.id);
-                //remove empty values
+                // alert("Period type id" + chartSlab.periodType.id);
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0) {
                         // alert('key:' + k + " and value:" + v);
@@ -20743,10 +21459,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -20757,10 +21474,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -20796,8 +21514,8 @@ scope.search3 = function () {
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
@@ -20811,20 +21529,20 @@ scope.search3 = function () {
 ;(function (module) {
     mifosX.controllers = _.extend(module, {
         CreateInterestRateChartController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
-            scope.formData = {};//used for update/save form data
+            scope.formData = {};// used for update/save form data
             scope.restrictDate = new Date();
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
             scope.isPrimaryGroupingByAmount = false;
 
-            //deposit product details
+            // deposit product details
             scope.productName = routeParams.productName;
             scope.productId = routeParams.productId;
 
             scope.productsLink = '';
             scope.viewProductLink = '';
             scope.productType = routeParams.productType;
-            //alert(scope.productType);
+            // alert(scope.productType);
             if (routeParams.productType === 'fixeddepositproduct') {
                 scope.productsLink = 'fixeddepositproducts';
                 scope.viewProductLink = 'viewfixeddepositproduct';
@@ -20833,7 +21551,7 @@ scope.search3 = function () {
                 scope.viewProductLink = 'viewrecurringdepositproduct';
             }
 
-            //get a interestrate chart
+            // get a interestrate chart
             resourceFactory.interestRateChartResource.get({resourceType: "template"}, function (data) {
                 scope.chart = data;
                 scope.chart.chartSlabs = [];
@@ -20841,8 +21559,8 @@ scope.search3 = function () {
             });
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -20899,28 +21617,28 @@ scope.search3 = function () {
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
 
-            //back to deposit product view
+            // back to deposit product view
             scope.cancel = function () {
                 location.path('/interestratecharts/' + routeParams.productId + '/' + routeParams.productName + '/' + routeParams.productType);
             };
 
             /**
-             * Update Interest rate chart details
-             */
+			 * Update Interest rate chart details
+			 */
             scope.submitInterestRateChartForm = function () {
-                //scope.chartData = {};
-                //scope.chartData = copyChartData(scope.chart);
+                // scope.chartData = {};
+                // scope.chartData = copyChartData(scope.chart);
                 var chartData = copyChartData(scope.chart);
 
-                scope.formData.charts = [];//declare charts array
-                scope.formData.charts.push(chartData);//add chart details
-                //update deposit product with new chart
+                scope.formData.charts = [];// declare charts array
+                scope.formData.charts.push(chartData);// add chart details
+                // update deposit product with new chart
                 if (routeParams.productType === 'fixeddepositproduct') {
                     resourceFactory.fixedDepositProductResource.update({productId: routeParams.productId}, scope.formData, function (data) {
                         location.path('/interestratecharts/' + routeParams.productId + '/' + routeParams.productName + '/' + scope.productType);
@@ -20931,14 +21649,16 @@ scope.search3 = function () {
                     });
                 }
 
-                //resourceFactory.interestRateChartResource.save(chartData, function (data) {
-                //  location.path('/interestratecharts/' + routeParams.productId + '/' + routeParams.productName);
-                //});
+                // resourceFactory.interestRateChartResource.save(chartData,
+				// function (data) {
+                // location.path('/interestratecharts/' + routeParams.productId
+				// + '/' + routeParams.productName);
+                // });
             }
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -20953,7 +21673,7 @@ scope.search3 = function () {
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs))
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -20963,10 +21683,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -20977,10 +21698,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -20998,7 +21720,7 @@ scope.search3 = function () {
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -21023,10 +21745,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -21037,10 +21760,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -21076,8 +21800,8 @@ scope.search3 = function () {
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
@@ -21178,7 +21902,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
 
                         if (data.penalty) {
                             scope.penalityFlag = true;
@@ -21195,7 +21919,7 @@ scope.search3 = function () {
                 scope.charges.splice(index, 1);
             };
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 
                 if (showOrHideValue == "show") {
@@ -21331,7 +22055,7 @@ scope.search3 = function () {
 
                 var temp = '';
 
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -21340,7 +22064,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeAccountMapping) {
                     temp = {
                         chargeId: scope.specificIncomeAccountMapping[i].chargeId,
@@ -21349,7 +22073,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -21396,7 +22120,7 @@ scope.search3 = function () {
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
 
-                //Interest recalculation data
+                // Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
@@ -21423,7 +22147,8 @@ scope.search3 = function () {
                     delete scope.formData.maxDifferentialLendingRate ;
 
                 }
-                //If Variable Installments is not allowed for this product, remove the corresponding formData
+                // If Variable Installments is not allowed for this product,
+				// remove the corresponding formData
                 if(!this.formData.allowVariableInstallments) {
                     delete scope.formData.minimumGap ;
                     delete scope.formData.maximumGap ;
@@ -21477,11 +22202,11 @@ scope.search3 = function () {
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
 
-            //interest rate details
+            // interest rate details
             scope.chart = {};
             scope.restrictDate = new Date();
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
             scope.isPrimaryGroupingByAmount = false;
 
             resourceFactory.recurringDepositProductResource.get({resourceType: 'template'}, function (data) {
@@ -21499,16 +22224,17 @@ scope.search3 = function () {
                 scope.formData.interestCalculationType = data.interestCalculationType.id;
                 scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                 scope.formData.preClosurePenalInterestOnTypeId = scope.product.preClosurePenalInterestOnTypeOptions[0].id;
-                //scope.formData.interestFreePeriodFrequencyTypeId = scope.product.interestFreePeriodTypeOptions[0].id;
+                // scope.formData.interestFreePeriodFrequencyTypeId =
+				// scope.product.interestFreePeriodTypeOptions[0].id;
 
-                //set chart template
+                // set chart template
                 scope.chart = scope.product.chartTemplate;
                 scope.chart.chartSlabs = [];
                 scope.formData.accountingRule = '1';
 
             });
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 
                 if (showOrHideValue == "show") {
@@ -21525,7 +22251,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -21594,7 +22320,7 @@ scope.search3 = function () {
 
                 var temp = '';
 
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -21603,7 +22329,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
@@ -21612,7 +22338,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -21633,8 +22359,10 @@ scope.search3 = function () {
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
 
                 resourceFactory.recurringDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
@@ -21642,8 +22370,8 @@ scope.search3 = function () {
             }
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -21700,15 +22428,15 @@ scope.search3 = function () {
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -21717,13 +22445,13 @@ scope.search3 = function () {
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.productId,
+                    // savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs))
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -21733,10 +22461,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -21747,10 +22476,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -21768,7 +22498,7 @@ scope.search3 = function () {
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -21793,10 +22523,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -21807,10 +22538,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -21846,8 +22578,8 @@ scope.search3 = function () {
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
@@ -21887,7 +22619,7 @@ scope.search3 = function () {
 
             });
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 
                 if (showOrHideValue == "show") {
@@ -21904,7 +22636,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -21973,7 +22705,7 @@ scope.search3 = function () {
 
                 var temp = '';
 
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -21982,7 +22714,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
@@ -21991,7 +22723,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -22059,7 +22791,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -22148,6 +22880,16 @@ scope.search3 = function () {
                     chargeCalculationType: data.chargeCalculationType.id,
                     amount: data.amount
                 };
+                
+                resourceFactory.chargeAdditionalDetailsAPIResource.get({ chargeId: routeParams.id }, function (data) {
+                    // scope.chargeAdditionalDetails =data;
+                    if (data.isEnabledFeeCalculationBasedOnTenure == 1) { scope.formData.isEnabledFeeCalculationBasedOnTenure = true }
+                    if (data.isEnabledAutoPaid == 1) { scope.formData.isEnabledAutoPaid = true }
+                    if (data.isTaxIncluded == 1) { scope.formData.isTaxIncluded = true }
+                    scope.formData.penaltyWaitPeriod = data.penaltyWaitPeriod;
+                    scope.formData.graceOnPenaltyPosting = data.graceOnPenaltyPosting;
+    
+                });
 
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
@@ -22163,8 +22905,8 @@ scope.search3 = function () {
                     scope.formData.feeInterval = data.feeInterval;
                 }
 
-                //when chargeAppliesTo is savings, below logic is
-                //to display 'Due date' field, if chargeTimeType is
+                // when chargeAppliesTo is savings, below logic is
+                // to display 'Due date' field, if chargeTimeType is
                 // 'annual fee' or 'monthly fee'
                 if (scope.formData.chargeAppliesTo === 2) {
                     if (data.chargeTimeType.value === "Annual Fee" || data.chargeTimeType.value === "Monthly Fee") {
@@ -22173,7 +22915,8 @@ scope.search3 = function () {
                             data.feeOnMonthDay.push(2013);
                             var actDate = dateFilter(data.feeOnMonthDay, 'dd MMMM');
                             scope.first.date = new Date(actDate);
-                            //to display "Repeats Every" field ,if chargeTimeType is
+                            // to display "Repeats Every" field ,if
+							// chargeTimeType is
                             // 'monthly fee'
                             if (data.chargeTimeType.value === "Monthly Fee") {
                                 scope.repeatEvery = true;
@@ -22189,8 +22932,8 @@ scope.search3 = function () {
                     scope.formData.chargePaymentMode = data.chargePaymentMode.id;
                 }
             });
-            //when chargeAppliesTo is savings, below logic is
-            //to display 'Due date' field, if chargeTimeType is
+            // when chargeAppliesTo is savings, below logic is
+            // to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
                 if ((chargeTimeType === 12) && (scope.template.chargeAppliesTo.value === "Loan"))
@@ -22206,7 +22949,7 @@ scope.search3 = function () {
                         if (chargeTimeType === scope.template.chargeTimeTypeOptions[i].id) {
                             if (scope.template.chargeTimeTypeOptions[i].value == "Annual Fee" || scope.template.chargeTimeTypeOptions[i].value == "Monthly Fee") {
                                 scope.showdatefield = true;
-                                //to show 'repeats every' field for monthly fee
+                                // to show 'repeats every' field for monthly fee
                                 if (scope.template.chargeTimeTypeOptions[i].value == "Monthly Fee") {
                                     scope.repeatEvery = true;
                                 } else {
@@ -22269,11 +23012,11 @@ scope.search3 = function () {
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
 
-            //interest rate chart details
+            // interest rate chart details
             scope.chart = {};
             scope.restrictDate = new Date();
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
             scope.deletedincentives = [];
             scope.isPrimaryGroupingByAmount = false;
 
@@ -22307,10 +23050,10 @@ scope.search3 = function () {
                     interestCalculationType: data.interestCalculationType.id,
                     interestCalculationDaysInYearType: data.interestCalculationDaysInYearType.id,
                     accountingRule: data.accountingRule.id,
-//                    interestFreePeriodApplicable: data.interestFreePeriodApplicable,
-//                    interestFreeFromPeriod: data.interestFreeFromPeriod,
-//                    interestFreeToPeriod: data.interestFreeToPeriod,
-//                    interestFreePeriodFrequencyTypeId: interestFreePeriodFrequencyTypeId,
+// interestFreePeriodApplicable: data.interestFreePeriodApplicable,
+// interestFreeFromPeriod: data.interestFreeFromPeriod,
+// interestFreeToPeriod: data.interestFreeToPeriod,
+// interestFreePeriodFrequencyTypeId: interestFreePeriodFrequencyTypeId,
                     preClosurePenalApplicable: data.preClosurePenalApplicable,
                     preClosurePenalInterest: data.preClosurePenalInterest,
                     preClosurePenalInterestOnTypeId: preClosurePenalInterestOnTypeId,
@@ -22333,7 +23076,7 @@ scope.search3 = function () {
                         incentive.attributeValue = parseInt(incentive.attributeValue);
                     })
                 })
-                //format chart date values
+                // format chart date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                     scope.fromDate.date = new Date(fromDate);
@@ -22384,7 +23127,7 @@ scope.search3 = function () {
                 }
             });
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 
                 if (showOrHideValue == "show") {
@@ -22401,7 +23144,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -22469,7 +23212,7 @@ scope.search3 = function () {
 
                 var temp = '';
 
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -22478,7 +23221,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
@@ -22487,7 +23230,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -22508,8 +23251,10 @@ scope.search3 = function () {
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
                 this.formData = removeEmptyValues(this.formData);
                 resourceFactory.fixedDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
                     location.path('/viewfixeddepositproduct/' + data.resourceId);
@@ -22517,8 +23262,8 @@ scope.search3 = function () {
             }
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -22576,8 +23321,8 @@ scope.search3 = function () {
 
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
@@ -22592,7 +23337,7 @@ scope.search3 = function () {
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs))
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -22602,10 +23347,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -22616,10 +23362,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -22638,7 +23385,7 @@ scope.search3 = function () {
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -22649,9 +23396,9 @@ scope.search3 = function () {
 
             removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
-                    //alert(k + ':' + v);
+                    // alert(k + ':' + v);
                     if (_.isNull(v) || _.isUndefined(v) || v === '') {
-                        //alert('remove' + k + ':' + v);
+                        // alert('remove' + k + ':' + v);
                         delete objArray[k];
                     }
 
@@ -22661,8 +23408,8 @@ scope.search3 = function () {
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
@@ -22687,10 +23434,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives,slabId) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -22706,10 +23454,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -22753,8 +23502,8 @@ scope.search3 = function () {
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
 
                     var incentive = {
@@ -22778,21 +23527,21 @@ scope.search3 = function () {
 ;(function (module) {
     mifosX.controllers = _.extend(module, {
         EditInterestRateChartController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
-            scope.formData = {};//used for update/save form data
+            scope.formData = {};// used for update/save form data
             scope.restrictDate = new Date();
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
             scope.deletedincentives = [];
             scope.isPrimaryGroupingByAmount = false;
 
-            //Fixed deposit product details
+            // Fixed deposit product details
             scope.productName = routeParams.productName;
             scope.productId = routeParams.productId;
 
             scope.productsLink = '';
             scope.viewProductLink = '';
             scope.productType = routeParams.productType;
-            //alert(scope.productType);
+            // alert(scope.productType);
             if (routeParams.productType === 'fixeddepositproduct') {
                 scope.productsLink = 'fixeddepositproducts';
                 scope.viewProductLink = 'viewfixeddepositproduct';
@@ -22801,7 +23550,7 @@ scope.search3 = function () {
                 scope.viewProductLink = 'viewrecurringdepositproduct';
             }
 
-            //get a interestrate chart
+            // get a interestrate chart
             resourceFactory.interestRateChartResource.get({chartId: routeParams.chartId, productId: routeParams.productId, template: true, associations: 'chartSlabs'}, function (data) {
                 scope.chart = data;
                 _.each(scope.chart.chartSlabs, function (chartSlab) {
@@ -22810,7 +23559,7 @@ scope.search3 = function () {
                     })
                 })
 
-                //format date values
+                // format date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                     scope.fromDate.date = new Date(fromDate);
@@ -22823,8 +23572,8 @@ scope.search3 = function () {
             });
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -22881,24 +23630,24 @@ scope.search3 = function () {
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
 
-            //back to deposit product view
+            // back to deposit product view
             scope.cancel = function () {
                 location.path('/interestratecharts/' + routeParams.productId + '/' + routeParams.productName + '/' + routeParams.productType);
             };
 
             /**
-             * Update Interest rate chart details
-             */
+			 * Update Interest rate chart details
+			 */
             scope.submitInterestRateChartForm = function () {
                 var chartData = copyChartData(scope.chart);
-                scope.formData.charts = [];//declare charts array
-                scope.formData.charts.push(chartData);//add chart details
+                scope.formData.charts = [];// declare charts array
+                scope.formData.charts.push(chartData);// add chart details
 
                 if (routeParams.productType === 'fixeddepositproduct') {
                     resourceFactory.fixedDepositProductResource.update({productId: routeParams.productId}, scope.formData, function (data) {
@@ -22910,15 +23659,17 @@ scope.search3 = function () {
                     });
                 }
 
-                //resourceFactory.interestRateChartResource.update({chartId: routeParams.chartId}, chartData, function (data) {
-                //  location.path('/interestratecharts/' + routeParams.productId + '/' + routeParams.productName);
-                //});
+                // resourceFactory.interestRateChartResource.update({chartId:
+				// routeParams.chartId}, chartData, function (data) {
+                // location.path('/interestratecharts/' + routeParams.productId
+				// + '/' + routeParams.productName);
+                // });
 
             }
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var chartData = {
@@ -22928,7 +23679,7 @@ scope.search3 = function () {
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.chart.savingsProductId,
+                    // savingsProductId: scope.chart.savingsProductId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs))
@@ -22938,10 +23689,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -22952,10 +23704,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -22973,7 +23726,7 @@ scope.search3 = function () {
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
                         delete newChartSlabData[k];
@@ -22998,10 +23751,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives,slabId) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -23018,10 +23772,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -23065,8 +23820,8 @@ scope.search3 = function () {
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     var incentive = {
                         id:$scope.chartSlab.incentives[index].id,
@@ -23336,7 +24091,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                         scope.penalityId = '';
                     });
@@ -23347,7 +24102,7 @@ scope.search3 = function () {
                 scope.charges.splice(index, 1);
             };
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
                 if (showOrHideValue == "show") {
                     scope.showOrHideValue = 'hide';
@@ -23481,7 +24236,7 @@ scope.search3 = function () {
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 var temp = '';
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -23490,7 +24245,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeAccountMapping) {
                     temp = {
                         chargeId: scope.specificIncomeAccountMapping[i].chargeId,
@@ -23499,7 +24254,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -23546,7 +24301,7 @@ scope.search3 = function () {
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
 
-                //Interest recalculation data
+                // Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
@@ -23574,7 +24329,8 @@ scope.search3 = function () {
 
                 }
 
-                //If Variable Installments is not allowed for this product, remove the corresponding formData
+                // If Variable Installments is not allowed for this product,
+				// remove the corresponding formData
                 if(!this.formData.allowVariableInstallments) {
                     delete scope.formData.minimumGap ;
                     delete scope.formData.maximumGap ;
@@ -23629,11 +24385,11 @@ scope.search3 = function () {
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
 
-            //interest rate chart details
+            // interest rate chart details
             scope.chart = {};
             scope.restrictDate = new Date();
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
+            scope.fromDate = {}; // required for date formatting
+            scope.endDate = {};// required for date formatting
             scope.deletedincentives = [];
             scope.isPrimaryGroupingByAmount = false;
 
@@ -23692,7 +24448,7 @@ scope.search3 = function () {
                         incentive.attributeValue = parseInt(incentive.attributeValue);
                     })
                 })
-                //format chart date values
+                // format chart date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
                     scope.fromDate.date = new Date(fromDate);
@@ -23744,7 +24500,7 @@ scope.search3 = function () {
                 }
             });
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 
                 if (showOrHideValue == "show") {
@@ -23761,7 +24517,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -23829,7 +24585,7 @@ scope.search3 = function () {
 
                 var temp = '';
 
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -23838,7 +24594,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
@@ -23847,7 +24603,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -23868,8 +24624,10 @@ scope.search3 = function () {
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
-                this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts = [];// declare charts array
+                this.formData.charts.push(copyChartData(scope.chart));// add
+																		// chart
+																		// details
                 this.formData = removeEmptyValues(this.formData);
                 resourceFactory.recurringDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
@@ -23877,8 +24635,8 @@ scope.search3 = function () {
             }
 
             /**
-             * Add a new row with default values for entering chart details
-             */
+			 * Add a new row with default values for entering chart details
+			 */
             scope.addNewRow = function () {
                 var fromPeriod = '';
                 var amountRangeFrom = '';
@@ -23936,24 +24694,24 @@ scope.search3 = function () {
 
 
             /**
-             *  create new chart data object
-             */
+			 * create new chart data object
+			 */
 
             copyChartData = function () {
                 var newChartData = {
                     id: scope.chart.id,
-                    //name: scope.chart.name,
-                    //description: scope.chart.description,
+                    // name: scope.chart.name,
+                    // description: scope.chart.description,
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
                     isPrimaryGroupingByAmount:scope.isPrimaryGroupingByAmount,
-                    //savingsProductId: scope.productId,
+                    // savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
                     chartSlabs: angular.copy(copyChartSlabs(scope.chart.chartSlabs))
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartData, function (v, k) {
                     if (!v)
                         delete newChartData[k];
@@ -23963,10 +24721,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param chartSlabs
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param chartSlabs
+			 * @returns {Array}
+			 */
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {
@@ -23977,10 +24736,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param chartSlab
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param chartSlab
+			 * 
+			 */
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
@@ -23998,7 +24758,7 @@ scope.search3 = function () {
                     newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
-                //remove empty values
+                // remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (v === '') {
                         delete newChartSlabData[k];
@@ -24014,9 +24774,9 @@ scope.search3 = function () {
 
             removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
-                    //alert(k + ':' + v);
+                    // alert(k + ':' + v);
                     if (_.isNull(v) || _.isUndefined(v) || v === '') {
-                        //alert('remove' + k + ':' + v);
+                        // alert('remove' + k + ':' + v);
                         delete objArray[k];
                     }
 
@@ -24026,8 +24786,8 @@ scope.search3 = function () {
             }
 
             /**
-             * Remove chart details row
-             */
+			 * Remove chart details row
+			 */
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
@@ -24047,10 +24807,11 @@ scope.search3 = function () {
             }
 
             /**
-             *  copy all chart details to a new Array
-             * @param incentiveDatas
-             * @returns {Array}
-             */
+			 * copy all chart details to a new Array
+			 * 
+			 * @param incentiveDatas
+			 * @returns {Array}
+			 */
             copyIncentives = function (incentives,slabId) {
                 var detailsArray = [];
                 _.each(incentives, function (incentive) {
@@ -24067,10 +24828,11 @@ scope.search3 = function () {
             }
 
             /**
-             * create new chart detail object data from chartSlab
-             * @param incentiveData
-             *
-             */
+			 * create new chart detail object data from chartSlab
+			 * 
+			 * @param incentiveData
+			 * 
+			 */
 
             copyIncentive = function (incentiveData) {
                 var newIncentiveDataData = {
@@ -24111,8 +24873,8 @@ scope.search3 = function () {
                 }
 
                 /**
-                 * Remove chart details row
-                 */
+				 * Remove chart details row
+				 */
                 $scope.removeRow = function (index) {
                     var incentive = {
                         id:$scope.chartSlab.incentives[index].id,
@@ -24228,7 +24990,7 @@ scope.search3 = function () {
                 });
             });
 
-            //advanced accounting rule
+            // advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 
                 if (showOrHideValue == "show") {
@@ -24245,7 +25007,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -24313,7 +25075,7 @@ scope.search3 = function () {
 
                 var temp = '';
 
-                //configure fund sources for payment channels
+                // configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
                         paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
@@ -24322,7 +25084,7 @@ scope.search3 = function () {
                     scope.paymentChannelToFundSourceMappings.push(temp);
                 }
 
-                //map fees to specific income accounts
+                // map fees to specific income accounts
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
@@ -24331,7 +25093,7 @@ scope.search3 = function () {
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
 
-                //map penalties to specific income accounts
+                // map penalties to specific income accounts
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
@@ -24428,7 +25190,7 @@ scope.search3 = function () {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
-                        //to charge select box empty
+                        // to charge select box empty
                         scope.chargeId = '';
                     });
                 }
@@ -24791,6 +25553,10 @@ scope.search3 = function () {
                     $uibModalInstance.dismiss('cancel');
                 };
             };
+            
+            resourceFactory.chargeAdditionalDetailsAPIResource.get({chargeId: routeParams.id}, function (data) {
+                scope.chargeAdditonalDetails =data;
+            });
 
         }
     });
@@ -25356,6 +26122,14 @@ scope.search3 = function () {
                 scope.data = data;
                 scope.accounts = data.glAccountOptions;
             });
+//Habile changes for tax component 
+            resourceFactory.habileTaxComponentTemplate.get(function (data) {
+                scope.data = data.taxComponentData;
+                scope.accounts = data.taxComponentData.glAccountOptions;
+                scope.taxComponentTypes = data.taxComponentTypes;
+                scope.formData.taxComponentType = data.taxComponentTypes[0].value;
+            });
+            //Habile changes end
 
             scope.populateDebitAccount = function(){
                 scope.populateAccounts(scope.formData.debitAccountType);
@@ -25397,7 +26171,9 @@ scope.search3 = function () {
                 var reqDate = dateFilter(scope.start.date, scope.df);
                 this.formData.dateFormat = scope.df;
                 this.formData.startDate = reqDate;
-                resourceFactory.taxcomponent.save(this.formData, function (data) {
+               // resourceFactory.taxcomponent.save(this.formData, function (data) {
+                   // location.path('/viewtaxcomponent/' + data.resourceId);
+                    resourceFactory.habileTaxComponent.save(this.formData, function (data) {
                     location.path('/viewtaxcomponent/' + data.resourceId);
                 });
             };
@@ -25457,18 +26233,20 @@ scope.search3 = function () {
     mifosX.controllers = _.extend(module, {
         EditTaxComponentController: function (scope, resourceFactory,routeParams, location, dateFilter) {
 
-            scope.start = {};
+        	scope.start = {};
             scope.start.date = new Date();
             scope.restrictDate = new Date('2025-06-22');
             scope.formData = {};
-            resourceFactory.taxcomponent.get({taxComponentId: routeParams.taxComponentId, template: 'true'},function (data) {
-                scope.taxComponent = data;
+            resourceFactory.habileTaxComponent.get({taxComponentId: routeParams.taxComponentId, template: 'true'},function (data) {
+                scope.taxComponent = data.taxComponentData;
+                scope.taxComponentTypes = data.taxComponentTypes;
                 if (data.startDate) {
                     scope.start.date = new Date(data.startDate);
                 }
                 scope.formData = {
                     name: scope.taxComponent.name,
-                    percentage: scope.taxComponent.percentage
+                    percentage: scope.taxComponent.percentage,
+                    taxComponentType: data.taxComponentType.value
                 }
             });
 
@@ -25478,7 +26256,7 @@ scope.search3 = function () {
                 var reqDate = dateFilter(scope.start.date, scope.df);
                 this.formData.dateFormat = scope.df;
                 this.formData.startDate = reqDate;
-                resourceFactory.taxcomponent.put({taxComponentId: routeParams.taxComponentId},this.formData, function (data) {
+                resourceFactory.habileTaxComponent.put({taxComponentId: routeParams.taxComponentId},this.formData, function (data) {
                     location.path('/viewtaxcomponent/' + data.resourceId);
                 });
             };
@@ -25603,11 +26381,12 @@ scope.search3 = function () {
         $log.info("TaxGroupController initialized");
     });
 }(mifosX.controllers || {}));;(function (module) {
-    mifosX.controllers = _.extend(module, {
+	mifosX.controllers = _.extend(module, {
         ViewTaxComponentController: function (scope, resourceFactory, routeParams) {
 
-            resourceFactory.taxcomponent.get({taxComponentId: routeParams.taxComponentId, template: 'true'},function (data) {
-                scope.taxComponent = data;
+            resourceFactory.habileTaxComponent.get({taxComponentId: routeParams.taxComponentId, template: 'true'},function (data) {
+                scope.taxComponent = data.taxComponentData;
+                scope.taxComponentType = data.taxComponentType;
             });
 
         }
@@ -25634,9 +26413,9 @@ scope.search3 = function () {
     mifosX.controllers = _.extend(module, {
 
         RunReportsController: function (scope, routeParams, resourceFactory, location, dateFilter, http, API_VERSION, $rootScope, $sce) {
-            scope.isCollapsed = false; //displays options div on startup
-            scope.hideTable = true; //hides the results div on startup
-            scope.hidePentahoReport = true; //hides the results div on startup
+            scope.isCollapsed = false; // displays options div on startup
+            scope.hideTable = true; // hides the results div on startup
+            scope.hidePentahoReport = true; // hides the results div on startup
             scope.hideChart = true;
             scope.piechart = false;
             scope.barchart = false;
@@ -25683,7 +26462,7 @@ scope.search3 = function () {
                         selectOne: data.data[i].row[6],
                         selectAll: data.data[i].row[7],
                         parentParameterName: data.data[i].row[8],
-                        inputName: "R_" + data.data[i].row[1] //model name
+                        inputName: "R_" + data.data[i].row[1] // model name
                     };
                     scope.reqFields.push(temp);
                     if (temp.displayType == 'select' && temp.parentParameterName == null) {
@@ -25762,7 +26541,8 @@ scope.search3 = function () {
             };
 
             function invalidDate(checkDate) {
-                // validates for yyyy-mm-dd returns true if invalid, false is valid
+                // validates for yyyy-mm-dd returns true if invalid, false is
+				// valid
                 var dateformat = /^\d{4}(\-|\/|\.)\d{1,2}\1\d{1,2}$/;
 
                 if (!(dateformat.test(checkDate))) {
@@ -25920,18 +26700,18 @@ scope.search3 = function () {
                 return false;
             };
             scope.runReport = function () {
-                //clear the previous errors
+                // clear the previous errors
                 scope.errorDetails = [];
                 removeErrors();
 
-                //update date fields with proper dateformat
+                // update date fields with proper dateformat
                 for (var i in scope.reportDateParams) {
                     if (scope.formData[scope.reportDateParams[i].inputName]) {
                         scope.formData[scope.reportDateParams[i].inputName] = dateFilter(scope.formData[scope.reportDateParams[i].inputName], 'yyyy-MM-dd');
                     }
                 }
 
-                //Custom validation for report parameters
+                // Custom validation for report parameters
                 parameterValidationErrors();
 
                 if (scope.errorDetails.length == 0) {
@@ -25944,7 +26724,7 @@ scope.search3 = function () {
                             scope.hideChart = true;
                             scope.formData.reportSource = scope.reportName;
                             resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
-                                //clear the csvData array for each request
+                                // clear the csvData array for each request
                                 scope.csvData = [];
                                 scope.reportData.columnHeaders = data.columnHeaders;
                                 scope.reportData.data = data.data;
@@ -25979,7 +26759,8 @@ scope.search3 = function () {
                                 var file = new Blob([data], {type: contentType});
                                 var fileContent = URL.createObjectURL(file);
 
-                                // Pass the form data to the iframe as a data url.
+                                // Pass the form data to the iframe as a data
+								// url.
                                 scope.baseURL = $sce.trustAsResourceUrl(fileContent);
                             });
                             break;
@@ -26032,7 +26813,7 @@ scope.search3 = function () {
         ViewReportsController: function (scope, routeParams, resourceFactory, location, route) {
             scope.reports = [];
             scope.type = routeParams.type;
-            //to display type of report on breadcrumb
+            // to display type of report on breadcrumb
             var typeReport = routeParams.type.replace(routeParams.type[0], routeParams.type[0].toUpperCase()) + " " + "Reports";
             scope.type = typeReport;
 
@@ -26053,7 +26834,7 @@ scope.search3 = function () {
                         for(var i=0; i<result.length; i++) {
                             scope.reports[i].report_locale_name = result[i].value;
                         }
-                        //console.log(JSON.stringify(scope.reports));
+                        // console.log(JSON.stringify(scope.reports));
                     }
                     scope.onFilter();
                 }
@@ -26094,7 +26875,9 @@ scope.search3 = function () {
                 });
             }
 
-            // Remove the duplicate entries from the array. The reports api returns same report multiple times if it have more than one parameter.
+            // Remove the duplicate entries from the array. The reports api
+			// returns same report multiple times if it have more than one
+			// parameter.
             scope.getReports = function (data) {
                 var prevId = -1;
                 var currId;
@@ -26473,8 +27256,12 @@ scope.search3 = function () {
                     scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                     scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
-                    /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
-                    //scope.formData.annualFeeAmount = data.annualFeeAmount;
+                    /*
+					 * FIX-ME: uncomment annualFeeAmount when datepicker
+					 * avialable, because it depends on the date field
+					 * 'annualFeeOnMonthDay'
+					 */
+                    // scope.formData.annualFeeAmount = data.annualFeeAmount;
                     scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
                     scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                     scope.formData.allowOverdraft = data.allowOverdraft;
@@ -26525,7 +27312,7 @@ scope.search3 = function () {
                 scope.charges.splice(index, 1);
             }
 
-            //return input type
+            // return input type
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
@@ -26669,8 +27456,11 @@ scope.search3 = function () {
                 scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                 scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;
                 scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
-                /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
-                //scope.formData.annualFeeAmount = data.annualFeeAmount;
+                /*
+				 * FIX-ME: uncomment annualFeeAmount when datepicker avialable,
+				 * because it depends on the date field 'annualFeeOnMonthDay'
+				 */
+                // scope.formData.annualFeeAmount = data.annualFeeAmount;
                 scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
                 scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                 scope.formData.allowOverdraft = data.allowOverdraft;
@@ -26702,8 +27492,12 @@ scope.search3 = function () {
                     scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                     scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
-                    /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
-                    //scope.formData.annualFeeAmount = data.annualFeeAmount;
+                    /*
+					 * FIX-ME: uncomment annualFeeAmount when datepicker
+					 * avialable, because it depends on the date field
+					 * 'annualFeeOnMonthDay'
+					 */
+                    // scope.formData.annualFeeAmount = data.annualFeeAmount;
                     scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
                     scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                     scope.formData.withHoldTax = data.withHoldTax;
@@ -27133,9 +27927,10 @@ scope.search3 = function () {
             scope.staffData = {};
             scope.accountNo = routeParams.id;
 
-            /*resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
-                scope.data = data;
-            });*/
+            /*
+			 * resourceFactory.savingsResource.get({accountId: routeParams.id,
+			 * template: 'true'}, function (data) { scope.data = data; });
+			 */
 
             scope.cancel = function () {
                 location.path('/viewsavingaccount/' + scope.accountNo);
@@ -27237,11 +28032,14 @@ scope.search3 = function () {
                 }
             };
 
-            /***
-             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
-             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
-             * @param dateFieldName
-             */
+            /*******************************************************************
+			 * we are using
+			 * orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter
+			 * to sort fields in ui api returns dates in array format[yyyy, mm,
+			 * dd], converting the array of dates to date object
+			 * 
+			 * @param dateFieldName
+			 */
             scope.convertDateArrayToObject = function(dateFieldName){
                 for(var i in scope.savingaccountdetails.transactions){
                     scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
@@ -27533,20 +28331,20 @@ scope.search3 = function () {
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
             });
-            /*// Saving notes not yet implemented
-            resourceFactory.savingsResource.getAllNotes({accountId: routeParams.id,resourceType:'notes'}, function (data) {
-                scope.savingNotes = data;
-            });
-
-            scope.saveNote = function () {
-                resourceFactory.savingsResource.save({accountId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
-                    var today = new Date();
-                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
-                    scope.savingNotes.push(temp);
-                    scope.formData.note = "";
-                    scope.predicate = '-id';
-                });
-            };*/
+            /*
+			 * // Saving notes not yet implemented
+			 * resourceFactory.savingsResource.getAllNotes({accountId:
+			 * routeParams.id,resourceType:'notes'}, function (data) {
+			 * scope.savingNotes = data; });
+			 * 
+			 * scope.saveNote = function () {
+			 * resourceFactory.savingsResource.save({accountId: routeParams.id,
+			 * resourceType: 'notes'}, this.formData, function (data) { var
+			 * today = new Date(); temp = { id: data.resourceId, note:
+			 * scope.formData.note, createdByUsername: "test", createdOn: today };
+			 * scope.savingNotes.push(temp); scope.formData.note = "";
+			 * scope.predicate = '-id'; }); };
+			 */
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
@@ -27610,7 +28408,7 @@ scope.search3 = function () {
             };
 
             scope.viewPrintDetails = function () {
-                //scope.printbtn = true;
+                // scope.printbtn = true;
                 scope.report = true;
                 scope.viewTransactionReport = false;
                 scope.viewReport = true;
@@ -27632,7 +28430,8 @@ scope.search3 = function () {
                     scope.baseURL += "&" + reportParams;
                 }
 
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                // allow untrusted urls for iframe
+				// http://docs.angularjs.org/error/$sce/insecurl
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
@@ -27654,7 +28453,8 @@ scope.search3 = function () {
                 if (reportParams > "") {
                     scope.baseURL += "&" + reportParams;
                 }
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                // allow untrusted urls for iframe
+				// http://docs.angularjs.org/error/$sce/insecurl
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
@@ -28054,12 +28854,15 @@ scope.search3 = function () {
                     scope.taskPermissionName = 'APPROVE_SHAREACCOUNT';
                     break ;
                 case "close":
-                    /* resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {
-                         scope.paymentTypes = data.paymentTypeOptions;
-                     });
-                     resourceFactory.savingsResource.get({accountId: routeParams.id, fields:'summary'}, function (accountData) {
-                         scope.accountBalance = accountData.summary.accountBalance;
-                     });*/
+                    /*
+					 * resourceFactory.savingsTrxnsTemplateResource.get({savingsId:
+					 * scope.accountId}, function (data) { scope.paymentTypes =
+					 * data.paymentTypeOptions; });
+					 * resourceFactory.savingsResource.get({accountId:
+					 * routeParams.id, fields:'summary'}, function (accountData) {
+					 * scope.accountBalance =
+					 * accountData.summary.accountBalance; });
+					 */
                     scope.title = 'label.heading.closeshareaccount';
                     scope.labelName = 'label.input.closedon';
                     scope.modelName = 'closedDate';
@@ -28220,11 +29023,14 @@ scope.search3 = function () {
                 }
             };
 
-            /***
-             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
-             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
-             * @param dateFieldName
-             */
+            /*******************************************************************
+			 * we are using
+			 * orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter
+			 * to sort fields in ui api returns dates in array format[yyyy, mm,
+			 * dd], converting the array of dates to date object
+			 * 
+			 * @param dateFieldName
+			 */
             scope.convertDateArrayToObject = function(dateFieldName){
                 for(var i in scope.shareaccountdetails.transactions){
                     scope.shareaccountdetails.transactions[i][dateFieldName] = new Date(scope.shareaccountdetails.transactions[i].date);
@@ -28462,7 +29268,7 @@ scope.search3 = function () {
             };
 
             scope.viewPrintDetails = function () {
-                //scope.printbtn = true;
+                // scope.printbtn = true;
                 scope.report = true;
                 scope.viewTransactionReport = false;
                 scope.viewReport = true;
@@ -28484,7 +29290,8 @@ scope.search3 = function () {
                     scope.baseURL += "&" + reportParams;
                 }
 
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                // allow untrusted urls for iframe
+				// http://docs.angularjs.org/error/$sce/insecurl
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
@@ -28506,7 +29313,8 @@ scope.search3 = function () {
                 if (reportParams > "") {
                     scope.baseURL += "&" + reportParams;
                 }
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                // allow untrusted urls for iframe
+				// http://docs.angularjs.org/error/$sce/insecurl
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
@@ -28683,7 +29491,8 @@ scope.search3 = function () {
             var fetchFunction = function (offset, limit, callback) {
                 scope.isCollapsed = true;
                 scope.displayResults = true;
-                //date format not used here since the underlying api does not support localization of dates
+                // date format not used here since the underlying api does not
+				// support localization of dates
                 var reqFirstDate = dateFilter(scope.date.first, 'yyyy-MM-dd');
                 var reqSecondDate = dateFilter(scope.date.second, 'yyyy-MM-dd');
                 var reqThirdDate = dateFilter(scope.date.third, 'yyyy-MM-dd');
@@ -29097,7 +29906,8 @@ scope.search3 = function () {
             resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                 for (var i in data.columnHeaders) {
                     if (data.columnHeaders[i].columnCode) {
-                        //logic for display codeValue instead of codeId in view datatable details
+                        // logic for display codeValue instead of codeId in view
+						// datatable details
                         for (var j in data.columnHeaders[i].columnValues) {
                             if(data.columnHeaders[i].columnDisplayType=='CODELOOKUP'){
                                 if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].id) {
@@ -29119,7 +29929,7 @@ scope.search3 = function () {
                 }
             });
 
-            //return input type
+            // return input type
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
@@ -29322,7 +30132,7 @@ scope.search3 = function () {
 
             scope.addCv = function () {
                 if (scope.newEle != undefined && scope.newEle.hasOwnProperty('name')) {
-                    //scope.codevalueerror = true;
+                    // scope.codevalueerror = true;
                     resourceFactory.codeValueResource.save({codeId: routeParams.id}, this.newEle, function (data) {
                         scope.stat = false;
                         location.path('/viewcode/' + routeParams.id);
@@ -29462,13 +30272,17 @@ scope.search3 = function () {
                 for (var i in scope.columns) {
 
                     if (scope.columns[i].originalName) {
-                        //This value should be updated based on the configuration
-                        /*if (scope.columns[i].newName) {
-                         if (scope.columns[i].type == "dropdown") {
-                         scope.columns[i].columnName = scope.columns[i].originalName;
-                         scope.columns[i].newName = scope.columns[i].columnCode + "_cd_" + scope.columns[i].newName;
-                         }
-                         }*/
+                        // This value should be updated based on the
+						// configuration
+                        /*
+						 * if (scope.columns[i].newName) { if
+						 * (scope.columns[i].type == "dropdown") {
+						 * scope.columns[i].columnName =
+						 * scope.columns[i].originalName;
+						 * scope.columns[i].newName =
+						 * scope.columns[i].columnCode + "_cd_" +
+						 * scope.columns[i].newName; } }
+						 */
 
                         delete scope.columns[i].originalName;
                         delete scope.columns[i].type;
@@ -29988,7 +30802,7 @@ scope.search3 = function () {
 
             });
 
-            //return input type
+            // return input type
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
@@ -30035,8 +30849,10 @@ scope.search3 = function () {
                 var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.dateTimeFormat();
-                //below logic, for the input field if data is not entered, this logic will put "", because
-                //if no data entered in input field , that field name won't send to server side.
+                // below logic, for the input field if data is not entered, this
+				// logic will put "", because
+                // if no data entered in input field , that field name won't
+				// send to server side.
                 for (var i = 0; i < scope.columnHeaders.length; i++) {
                     if (!_.contains(_.keys(this.formData), scope.columnHeaders[i].columnName)) {
                         this.formData[scope.columnHeaders[i].columnName] = "";
@@ -30088,7 +30904,7 @@ scope.search3 = function () {
             scope.showOptForm = false;
             scope.showQBtn = true;
             scope.showOptBtn = false;
-            //this will cause the step to be hidden
+            // this will cause the step to be hidden
             scope.disabled = 'true';
             scope.question = {
                 responseDatas: []
@@ -30548,8 +31364,10 @@ scope.search3 = function () {
                     resourceFactory.hookResources.delete({hookId: routeParams.id}, {}, function (data) {
                         $uibModalInstance.close('delete');
                         location.path('/hooks');
-                        // added dummy request param because Content-Type header gets removed
-                        // if the request does not contain any data (a request body)
+                        // added dummy request param because Content-Type header
+						// gets removed
+                        // if the request does not contain any data (a request
+						// body)
                     });
                 };
                 $scope.cancel = function () {
@@ -30638,7 +31456,7 @@ scope.search3 = function () {
         $log.info("ViewSchedulerJobHistoryController initialized");
     });
 }(mifosX.controllers || {}));
-;/*global mifosX _  CKEDITOR */
+;/* global mifosX _ CKEDITOR */
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CreateTemplateController: function (scope, resourceFactory, location, $rootScope) {
@@ -30954,8 +31772,10 @@ scope.search3 = function () {
                     resourceFactory.templateResource.delete({templateId: routeParams.id}, {}, function (data) {
                         $uibModalInstance.close('delete');
                         location.path('/templates');
-                        // added dummy request param because Content-Type header gets removed
-                        // if the request does not contain any data (a request body)
+                        // added dummy request param because Content-Type header
+						// gets removed
+                        // if the request does not contain any data (a request
+						// body)
                     });
                 };
                 $scope.cancel = function () {
@@ -31051,17 +31871,14 @@ scope.search3 = function () {
                 location.path('/viewuser/' + id);
             };
 
-            /* -----Throws error on test-----
-             if (!scope.searchCriteria.users) {
-             scope.searchCriteria.users = null;
-             scope.saveSC();
-             }
-             scope.filterText = scope.searchCriteria.users;
-
-             scope.onFilter = function () {
-             scope.searchCriteria.users = scope.filterText;
-             scope.saveSC();
-             };*/
+            /*
+			 * -----Throws error on test----- if (!scope.searchCriteria.users) {
+			 * scope.searchCriteria.users = null; scope.saveSC(); }
+			 * scope.filterText = scope.searchCriteria.users;
+			 * 
+			 * scope.onFilter = function () { scope.searchCriteria.users =
+			 * scope.filterText; scope.saveSC(); };
+			 */
 
             resourceFactory.userListResource.getAllUsers(function (data) {
                 scope.users = data;
@@ -31156,8 +31973,10 @@ scope.search3 = function () {
                     resourceFactory.userListResource.delete({userId: routeParams.id}, {}, function (data) {
                         $uibModalInstance.close('delete');
                         location.path('/users');
-                        // added dummy request param because Content-Type header gets removed
-                        // if the request does not contain any data (a request body)
+                        // added dummy request param because Content-Type header
+						// gets removed
+                        // if the request does not contain any data (a request
+						// body)
                     });
                 };
                 $scope.cancel = function () {
@@ -31169,5 +31988,59 @@ scope.search3 = function () {
     });
     mifosX.ng.application.controller('ViewUserController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$uibModal', mifosX.controllers.ViewUserController]).run(function ($log) {
         $log.info("ViewUserController initialized");
+    });
+}(mifosX.controllers || {}));
+//accural report controller
+
+;(function (module) {
+    mifosX.controllers = _.extend(module, {
+        AccuralDetailsReportController: function (scope, resourceFactory, location,$rootScope) {
+           scope.restrictDate = new Date();
+           this.formData = {}
+           this.formData.startDate=new Date();
+           this.formData.endDate=new Date();
+
+           this.formData.fromDate=new Date();
+           this.formData.toDate=new Date();
+
+            scope.submit = function () {
+                console.log(this.formData,$rootScope);
+                var URL= $rootScope.hostUrl+"/fineract-provider/api/v1/monthlyAccrualDetail/accrualDetails?tenantIdentifier="+$rootScope.tenantIdentifier+"&startDate="+this.formData.startDate+"&endDate="+this.formData.endDate;
+                window.open(URL,'_blank');
+//                resourceFactory.codeResources.save(this.formData, function (data) {
+//                    location.path('/viewcode/' + data.resourceId);
+//                });
+            };
+}
+    });
+    mifosX.ng.application.controller('AccuralDetailsReportController', ['$scope', 'ResourceFactory', '$location','$rootScope', mifosX.controllers.AccuralDetailsReportController]).run(function ($log) {
+        $log.info("AccuralDetailsReportController initialized");
+    });
+}(mifosX.controllers || {}));
+//credit bureau report controller
+
+;(function (module) {
+    mifosX.controllers = _.extend(module, {
+        CreditBureauDetailsReportController: function (scope, resourceFactory, location,$rootScope) {
+           scope.restrictDate = new Date();
+           this.formData = {}
+           this.formData.asOnDate=new Date();
+           this.formData.closedFrom=new Date();
+
+           this.formData.fromDate=new Date();
+           this.formData.toDate=new Date();
+
+            scope.submit = function () {
+                console.log(this.formData,$rootScope);
+                var URL= $rootScope.hostUrl+"/fineract-provider/api/v1/creditBureauReportDetail/creditBureauDetails?tenantIdentifier="+$rootScope.tenantIdentifier+"&asOnDate="+this.formData.asOnDate+"&closedFrom="+this.formData.closedFrom;
+                window.open(URL,'_blank');
+//                resourceFactory.codeResources.save(this.formData, function (data) {
+//                    location.path('/viewcode/' + data.resourceId);
+//                });
+            };
+}
+    });
+    mifosX.ng.application.controller('CreditBureauDetailsReportController', ['$scope', 'ResourceFactory', '$location','$rootScope', mifosX.controllers.CreditBureauDetailsReportController]).run(function ($log) {
+        $log.info("CreditBureauDetailsReportController initialized");
     });
 }(mifosX.controllers || {}));

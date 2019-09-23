@@ -59,6 +59,21 @@
                         <td>{{'label.heading.due' | translate}}</td>
                         <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amount}}</td>
                     </tr>
+                    <div ng-show="charge.taxComponent == 0">
+                        <tr ng-show="charge.taxComponent > 0" class="blockoverlay searchResultDisplay fin-back-col">
+                            <td>Fees Component :</td>
+                            <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.feesComponent}}</td>
+                        </tr>
+                        <tr ng-show="charge.taxComponent > 0" class="blockoverlay searchResultDisplay fin-back-col">
+                            <td>Tax Component :</td>
+                            <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.taxComponent}}</td>
+                        </tr>
+                        <tr class="blockoverlay searchResultDisplay fin-back-col"
+                            ng-repeat="taxComponentData in charge.taxComponentDatas">
+                            <td>{{taxComponentData.taxComponentName}} :</td>
+                            <td>{{charge.currency.displaySymbol}}&nbsp;{{taxComponentData.taxComponentAmount}}</td>
+                        </tr>
+                    </div>
                     <tr>
                         <td>{{'label.heading.paid' | translate}}</td>
                         <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountPaid}}</td>

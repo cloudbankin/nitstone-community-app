@@ -76,6 +76,11 @@
 						<td>{{'label.input.incomefromcharges' | translate}}</td>
 						<td>{{charge.incomeOrLiabilityAccount.name}} ({{charge.incomeOrLiabilityAccount.glCode}})</td>
 					</tr>
+					<tr>
+						<td>Is Tax Included?</td>
+						<td ng-if="chargeAdditonalDetails.isTaxIncluded == 1">Yes</td>
+						<td ng-if="chargeAdditonalDetails.isTaxIncluded == 0">No</td>
+					</tr>
                     <tr ng-show="charge.taxGroup">
                         <td>{{'label.input.taxgroup' | translate}}</td>
                         <td>{{charge.taxGroup.name}}</td>

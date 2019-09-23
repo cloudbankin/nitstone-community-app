@@ -59,6 +59,9 @@
     "label.heading.attendance": "Attendance",
     "label.heading.comments": "Comments",
     "label.heading.id": "ID",
+    "label.heading.clientname": "Client Name",
+    "label.heading.loanaccountno": "Loan accountNo",
+    
     "label.heading.activationdate": "Activation Date",
     "label.heading.externalid": "External Id",
     "label.heading.summary": "Summary",
@@ -150,7 +153,6 @@
     "label.heading.applyadditionalshares": "Apply Additional Shares",
     "label.heading.approveadditionalshares": "Approve Additional Shares",
     "label.heading.rejectadditionalshares": "Reject Additional Shares",
-    "label.heading.rejectadditionalshares": "Redeem Shares",
     "label.heading.sharesapplication" : "Share Account Application",
     "label.heading.dividendperiodstartdate" : "Dividend Period Start Date",
     "label.heading.dividendperiodenddate" : "Dividend Period End Date",
@@ -4291,6 +4293,13 @@
     "error.msg.loan.application.charge.transaction.date.on.non.working.day": "Charge Transaction date cannot be on a non working day.",
     "label.input.typeOfCharge": "Type of Charge",
 "error.msg.loan.repayment.before.value.date.not.allowed": "Repayment cannot be done before the value date",
-"error.msg.loan.repayment.waive.penalty.charges" : "Please waive the penalty charges applied till the transaction date then do repayment"
+"error.msg.loan.repayment.waive.penalty.charges" : "Please waive the penalty charges applied till the transaction date then do repayment",
+"label.anchor.accrual" : "Monthly Accrual Report",
+"label.button.accrualDetailsReport": "Monthly Accrual Report",
+"label.anchor.creditbureau": "Credit Bureau Report",
+"label.button.creditBureauDetailsReport": "Credit Bureau Report",
+"label.input.asOnDate" : "As On Date",
+"label.input.startDate": "Start Date",
+"label.input.endDate": "End Date"
 
 }

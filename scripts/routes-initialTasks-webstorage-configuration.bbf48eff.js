@@ -902,7 +902,25 @@
             .when('/loanforeclosure/:id', {
                 templateUrl: 'views/loans/loanforeclosure.html'
             })
-            .when('/address/:id', {
+            
+             .when('/address/:id/:fid/:entityType', {
+                templateUrl: 'views/administration/AddressForm.html'
+            })
+            .when('/address/:id/:entityType', {
+                templateUrl: 'views/administration/AddressForm.html'
+            })
+            .when('/editAddress/:addrType/:addrId/:clientId/:entityType', {
+                templateUrl: 'views/administration/EditAddress.html'
+            })
+            .when('/smscampaigns', {
+                templateUrl: 'views/organization/smscampaigns/smscampaigns.html'
+            })
+            
+             /* .when('/smscampaigns', {
+                templateUrl: 'views/organization/smscampaigns/smscampaigns.html'
+            })
+            
+           .when('/address/:id', {
                 templateUrl: 'views/administration/AddressForm.html'
             })
             .when('/editAddress/:addrType/:addrId/:clientId', {
@@ -910,7 +928,8 @@
             })
             .when('/smscampaigns', {
                 templateUrl: 'views/organization/smscampaigns/smscampaigns.html'
-            })
+            })*/
+            
             .when('/createsmscampaign', {
                 templateUrl: 'views/organization/smscampaigns/createsmscampaign.html'
             })
@@ -931,6 +950,12 @@
             })
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
+            })
+			 .when('/accrual', {
+                templateUrl: 'views/accrualDetailsReport/accrualDetailsReport.html'
+            })
+            .when('/creditBureau', {
+                templateUrl: 'views/creditBureauDetailsReport/creditBureauDetailsReport.html'
             })
         ;
         $locationProvider.html5Mode(false);

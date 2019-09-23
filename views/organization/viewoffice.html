@@ -40,6 +40,58 @@
                             </table>
                         </div>
                     </div>
+                    <!-- start address -->
+
+                    <button ng-show="showAddAddressButton" class="btn btn-primary pull-right" ng-click="routeTo()"><i
+                            class="icon-plus icon-white"></i>{{'label.button.addAddress'
+            | translate}}</button>
+                    <br>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Address type</th>
+                                <th>Street</th>
+                                <th>Address Line 1</th>
+                                <th>Address Line 2</th>
+                                <th>Address Line 3</th>
+                                <th>City</th>
+                                <!-- <th>Town / Village</th> -->
+                                <th>Country</th>
+                                <th>State</th>
+                                <th>Postal Code</th>
+
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="address in addresses">
+                            <tr>
+                                <td>{{address.addressType}}</td>
+                                <td>{{address.street}}</td>
+                                <td>{{address.addressLine1}}</td>
+                                <td>{{address.addressLine2}}</td>
+                                <td>{{address.addressLine3}}</td>
+                                <td>{{address.city}}</td>
+                                <!-- <td>{{address.townVillage}}</td> -->
+                                <td>{{address.countryName}}</td>
+
+                                <td>{{address.stateName}}</td>
+                                <td>{{address.postalCode}}</td>
+                                <td>
+                                    <i class="fa fa-pencil-square-o cursorpointer" aria-hidden="true"
+                                        ng-click="routeToEdit(address.addressTypeId,address.addressId)"
+                                        uib-tooltip="Edit"></i>
+                                    <!-- <i class="fa fa-trash-o cursorpointer"
+                                        ng-click="ChangeAddressStatus(address.client_id,address.isActive,address.addressId)"
+                                        uib-tooltip="Delete"></i> -->
+                                    <!-- <i class="fa fa-plus-square" aria-hidden="true" ng-click="addAddress()" uib-tooltip="Add"></i> -->
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <!-- End of address -->
                 </uib-tab>
                 <uib-tab heading="{{officedatatable.registeredTableName}}" ng-repeat="officedatatable in officedatatables"
                      select="dataTableChange(officedatatable)" has-permission='READ_{{officedatatable.registeredTableName}}'>
@@ -86,3 +138,14 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="deleteBorrowerAddress.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.Individuals.popup.delete.address' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>
